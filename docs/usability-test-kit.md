@@ -6,7 +6,7 @@ For about 10 testers (convenience sample). One facilitator and, if possible, one
 
 ## Before each tester (pre-test reset)
 
-1. On the test phone open **Settings** (bottom tab), then **Reset demo data**. This removes reports from the last tester and restores the sample reports. The app is set to **Blok 6** after a reset; leave it on Blok 6.
+1. On the test phone open **Settings** (gear icon, top right of Home), tap **Reset demo data**, then **OK**. This removes reports from the last tester and restores the sample reports. The app is set to **Blok 6** after a reset; leave it on Blok 6.
 2. Go back to **Home**.
 3. Have a photo ready on the phone (any picture of rubbish or a bin), or tell the tester they may use the "Use a sample photo instead" button.
 4. Start a new observation sheet.
@@ -90,18 +90,19 @@ Other comments or problems seen: ____________________________________________
 2. **Readability:** The text was easy to read on the phone screen.
 3. **Clarity:** The information (bins, drop-off points, schedule) was clear and easy to understand.
 4. **Ease of reporting:** Reporting a waste problem was quick and easy.
-5. **Overall satisfaction:** Overall, I am satisfied with the app.
+5. **Visual hierarchy:** The most important information on each screen stood out.
+6. **Overall satisfaction:** Overall, I am satisfied with the app.
 
-**Part B.** Open questions (short answer)
+**Part B.** Open questions (short answer). Ask these aloud first as a 2-minute post-test interview (the plan's qualitative feedback), and note the answers; then let the tester fill in the form.
 
-6. What was the most useful part of the app for you?
-7. What was confusing or difficult, if anything?
-8. What one thing would you add or change so you would use it at home?
+7. What was the most useful part of the app for you?
+8. What was confusing or difficult, if anything?
+9. What one thing would you add or change so you would use it at home?
 
 **Part C.** About you (optional, multiple choice)
 
-9. Do you live in Desa Mentari? Yes / No / Prefer not to say
-10. Which language would you prefer the app in? English / Bahasa Melayu / Chinese / Tamil / Other
+10. Do you live in Desa Mentari? Yes / No / Prefer not to say
+11. Which language would you prefer the app in? English / Bahasa Melayu / Chinese / Tamil / Other
 
 ## After all sessions
 

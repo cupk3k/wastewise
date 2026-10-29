@@ -60,6 +60,7 @@ Team docs are in `docs/` (overview, content verification, usability test kit, li
 ```bash
 npx playwright install chromium   # once
 npm run screenshots               # PNG of every screen in docs/screenshots/ (full-length ones in full/)
+npm run qr                        # poster QR code for the live URL, in docs/qr/
 ```
 
 ## Usability testing

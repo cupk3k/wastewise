@@ -26,7 +26,7 @@ It is a **prototype with simulated data**. Nothing is sent to the JMB, MBPJ or a
 | Data consistent across form, My reports and dashboard | One shared store: a report sent from the form appears in My reports and the dashboard; a status change in the dashboard shows in My reports straight away (also across open tabs) |
 | Only verified info shown as fact | Drop-off points, schedule and announcements are tagged "Sample". See `content-verification.md` for what is still unverified |
 | Offline backup | Service worker caches the app after the first visit, so it opens without Wi-Fi |
-| Budget RM 0 | Free tools only: React, Vite, GitHub, Vercel free tier |
+| Software / hosting budget RM 0 | Free tools only: React, Vite, GitHub, Vercel free tier |
 
 ## Screens
 
@@ -47,7 +47,7 @@ It is a **prototype with simulated data**. Nothing is sent to the JMB, MBPJ or a
 | 13 | `/admin` | Management dashboard: all reports, status counts, filters |
 | 14 | `/admin/reports/:id` | Handle one report: assign, change status, add a note for the resident |
 
-Screenshots of every screen are in `docs/screenshots/` (see "Screenshots" below).
+Screenshots of every screen are in `docs/screenshots/` (see "Screenshots" below). The poster QR code is in `docs/qr/`. A point-by-point comparison with the project plan, with happy-path tests, is in `plan-alignment.md`.
 
 ## Tech stack
 
