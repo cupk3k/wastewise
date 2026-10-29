@@ -144,6 +144,10 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 1. Show `docs/qr/wastewise-qr.png` on a screen or print it.
 2. Scan with an iPhone Camera and an Android camera. **Expect:** Home of the live app opens.
 
+### HP10. Reset between testers
+*Plan: Activity 9 (usability testing with ~10 users).*
+1. Home → gear → **Reset demo data** → **OK**. **Expect:** "Demo data reset."; My reports shows only WW-0107 and WW-0104; management view back to 7 (2 Submitted, 2 Under review, 3 Resolved).
+
 ### HP11. Language switch
 *Plan: Outputs "simple Bahasa Melayu and English" (infographic); Target audience: Desa Mentari residents.*
 1. On Home, tap **BM** (top right). **Expect:** everything turns to Bahasa Melayu ("Kutipan seterusnya", tabs "Utama", "Asingkan", "Lapor"…); the button now says **EN**.
@@ -161,7 +165,3 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 2. Tap **Not now**. **Expect:** it closes and doesn't come back on other pages during this visit.
 3. Gear → **Add to Home Screen → Show me how**. **Expect:** the sheet opens again.
 4. Follow the steps, then open WasteWise from the new home screen icon. **Expect:** no sheet, and Settings says "WasteWise is on your home screen."
-
-### HP10. Reset between testers
-*Plan: Activity 9 (usability testing with ~10 users).*
-1. Home → gear → **Reset demo data** → **OK**. **Expect:** "Demo data reset."; My reports shows only WW-0107 and WW-0104; management view back to 7 (2 Submitted, 2 Under review, 3 Resolved).
