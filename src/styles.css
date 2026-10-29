@@ -537,22 +537,23 @@ img { max-width: 100%; display: block; }
 .ok-note { display: flex; align-items: center; gap: 6px; }
 
 .sheet-backdrop {
-  position: fixed; inset: 0; z-index: 50; background: rgba(10, 16, 13, .45);
+  position: fixed; inset: 0; z-index: 50; background: rgba(10, 16, 13, .6);
   display: flex; align-items: flex-end; justify-content: center;
   animation: fade-in .2s ease both;
 }
 .sheet {
-  position: relative; width: 100%; max-width: 480px; max-height: 62dvh; overflow-y: auto;
+  position: relative; width: 100%; max-width: 480px; max-height: 82dvh; overflow-y: auto; overscroll-behavior: contain;
   background: var(--bg); border-radius: 22px 22px 0 0; padding: 22px 18px calc(18px + env(safe-area-inset-bottom));
   box-shadow: 0 -10px 40px rgba(0, 0, 0, .2); outline: none;
   animation: sheet-up .28s cubic-bezier(.2, .8, .2, 1) both;
 }
 .sheet::before { content: ''; position: absolute; top: 8px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 2px; background: var(--line); }
-.sheet__close { position: absolute; top: 10px; right: 8px; }
-.sheet__head { display: flex; gap: 14px; align-items: center; padding-right: 36px; margin-bottom: 12px; }
+.sheet__lang { position: absolute; top: 14px; right: 14px; min-width: 40px; height: 36px; font-size: 13px; }
+.sheet__tabs { margin: 4px 0 14px; }
+.sheet__after { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--muted); text-align: center; }
+.sheet__head { display: flex; gap: 14px; align-items: center; padding-right: 50px; margin-bottom: 12px; }
 .sheet__head h2 { font-size: 18px; font-weight: 800; line-height: 1.25; margin-bottom: 2px; }
 .sheet__art { width: 64px; height: auto; flex: none; }
-.sheet__os { font-size: 14px; font-weight: 800; margin: 10px 0 4px; }
 .sheet__steps { margin: 0; padding-left: 22px; display: grid; gap: 8px; font-size: 15px; }
 .sheet__steps li::marker { font-weight: 800; color: var(--accent); }
 .step-icon {

@@ -15,7 +15,7 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 ## Day before (on every demo phone)
 
 - [ ] Open the site **once while online** and tap through Home, Guide, Drop-off points, Report, My reports and Management view. This saves the app on the phone for offline use.
-- [ ] **Add to Home Screen** (iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → Add to Home screen / Install app).
+- [ ] **Add to Home Screen** (required: on a phone the app only works from its icon). iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → Add to Home screen / Install app. Then always open it from the icon.
 - [ ] Test offline: turn on airplane mode, open the app from the home screen icon, check that pages open. Turn airplane mode off again.
 - [ ] Save a test photo of rubbish or a bin on each phone for the report task.
 - [ ] Charge every phone; bring a power bank and cables.
@@ -25,7 +25,7 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 
 - [ ] **Reset demo data** on every demo phone (gear icon on Home → Reset demo data → OK).
 - [ ] Check the app shows Blok 6 on Home, in English (the button says "BM") with dark mode off.
-- [ ] Visitors who scan the QR code see the "Add to Home Screen" guide first: that is expected. They can follow it or tap "Not now".
+- [ ] Visitors who scan the QR code see the "Add WasteWise to your home screen" page first and must follow its 3 steps before they can use the app (about 30 seconds). Be ready to help. If their camera opens the link inside another app (WhatsApp, Instagram, a QR scanner app), they need to open it in Safari or Chrome first. A prepared demo phone is the quick alternative.
 - [ ] Set up a **phone hotspot** as backup Wi-Fi, in case the venue Wi-Fi fails.
 - [ ] Poster QR code visible and scannable from about 30 cm.
 - [ ] Usability test kit ready: observation sheets, timer, Google Form link or QR.

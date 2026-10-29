@@ -6,13 +6,11 @@ import { usePrefs } from '../prefs.jsx'
 import { LANGUAGES, t } from '../i18n.js'
 import { BLOCKS } from '../data/site.js'
 import { PageHeader } from '../components/ui.jsx'
-import { isStandalone, openInstallGuide } from '../components/InstallSheet.jsx'
 
 export default function Settings() {
   const { myBlock, setBlock, resetDemo } = useStore()
   const { lang, setLang, theme, setTheme } = usePrefs()
   const [done, setDone] = useState(false)
-  const installed = isStandalone()
 
   return (
     <div className="page">
@@ -50,20 +48,6 @@ export default function Settings() {
             onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
           />
         </label>
-      </section>
-
-      <section className="section">
-        <h2>{t('settings.install')}</h2>
-        {installed ? (
-          <p className="ok-note"><Icon name="checkCircle" size={18} /> {t('settings.installDone')}</p>
-        ) : (
-          <>
-            <p className="muted">{t('settings.installHelp')}</p>
-            <button className="btn btn--ghost btn--block" onClick={openInstallGuide}>
-              <Icon name="phone" size={18} /> {t('settings.installShow')}
-            </button>
-          </>
-        )}
       </section>
 
       <section className="section">

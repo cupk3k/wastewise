@@ -1,12 +1,11 @@
-// "Add to Home Screen" guide. Opens by itself on phones whenever WasteWise is used in the
-// browser instead of from the home screen icon; once added, it never shows again there.
-// "Not now" hides it until the next visit. Settings can open it again any time.
+// "Add to Home Screen" gate. On phones and tablets WasteWise only works from the home screen
+// icon: opened in the browser, this sheet covers the app and can't be closed. Tabs switch
+// between the iPhone and Android steps (the phone's own one is picked first). Computers are
+// not blocked, so the app can still be shown on a laptop.
 import { useEffect, useRef, useState } from 'react'
 import Icon from './Icon.jsx'
-import { t } from '../i18n.js'
-
-const DISMISS_KEY = 'wastewise.installSheet.dismissed' // sessionStorage: one "Not now" per visit
-const OPEN_EVENT = 'wastewise:install-guide'
+import { LANGUAGES, t } from '../i18n.js'
+import { usePrefs } from '../prefs.jsx'
 
 // Chrome on Android offers its own install prompt; keep it so "Install now" can use it.
 let deferredPrompt = null
@@ -29,54 +28,37 @@ export function platform() {
   return 'other'
 }
 
-export function openInstallGuide() {
-  window.dispatchEvent(new Event(OPEN_EVENT))
-}
-
-function dismissedThisVisit() {
-  try {
-    return sessionStorage.getItem(DISMISS_KEY) === '1'
-  } catch {
-    return false
-  }
+/** True when the app must be added to the home screen before it can be used. */
+export function useInstallGate() {
+  const [blocked, setBlocked] = useState(() => platform() !== 'other' && !isStandalone())
+  useEffect(() => {
+    const check = () => setBlocked(platform() !== 'other' && !isStandalone())
+    const mq = window.matchMedia?.('(display-mode: standalone)')
+    mq?.addEventListener?.('change', check)
+    window.addEventListener('appinstalled', check)
+    return () => {
+      mq?.removeEventListener?.('change', check)
+      window.removeEventListener('appinstalled', check)
+    }
+  }, [])
+  return blocked
 }
 
 export default function InstallSheet() {
   const os = platform()
-  const [open, setOpen] = useState(() => os !== 'other' && !isStandalone() && !dismissedThisVisit())
+  const [tab, setTab] = useState(os === 'android' ? 'android' : 'ios')
   const [canPrompt, setCanPrompt] = useState(!!deferredPrompt)
+  const [installed, setInstalled] = useState(false)
+  const { lang, setLang } = usePrefs()
+  const other = LANGUAGES[lang === 'en' ? 'ms' : 'en']
   const sheetRef = useRef(null)
 
   useEffect(() => {
-    const show = () => setOpen(!isStandalone())
-    const ready = () => setCanPrompt(true)
-    const installed = () => setOpen(false)
-    window.addEventListener(OPEN_EVENT, show)
-    window.addEventListener('wastewise:install-ready', ready)
-    window.addEventListener('appinstalled', installed)
-    return () => {
-      window.removeEventListener(OPEN_EVENT, show)
-      window.removeEventListener('wastewise:install-ready', ready)
-      window.removeEventListener('appinstalled', installed)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!open) return
     sheetRef.current?.focus()
-    const onKey = (e) => e.key === 'Escape' && notNow()
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
-
-  function notNow() {
-    try {
-      sessionStorage.setItem(DISMISS_KEY, '1')
-    } catch {
-      /* ignore */
-    }
-    setOpen(false)
-  }
+    const ready = () => setCanPrompt(true)
+    window.addEventListener('wastewise:install-ready', ready)
+    return () => window.removeEventListener('wastewise:install-ready', ready)
+  }, [])
 
   async function installNow() {
     const prompt = deferredPrompt
@@ -85,51 +67,58 @@ export default function InstallSheet() {
     if (!prompt) return
     prompt.prompt()
     const { outcome } = await prompt.userChoice
-    if (outcome === 'accepted') setOpen(false)
+    if (outcome === 'accepted') setInstalled(true)
   }
 
-  if (!open) return null
-
-  const lists = os === 'other' ? ['ios', 'android'] : [os]
-
   return (
-    <div className="sheet-backdrop" onClick={notNow}>
-      <div
-        className="sheet"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="install-title"
-        tabIndex={-1}
-        ref={sheetRef}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className="icon-btn sheet__close" onClick={notNow} aria-label={t('install.close')}>
-          <Icon name="x" />
+    <div className="sheet-backdrop">
+      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="install-title" tabIndex={-1} ref={sheetRef}>
+        <button
+          className="lang-btn sheet__lang"
+          onClick={() => setLang(other.code)}
+          aria-label={`${other.short}, ${t('home.switchLanguage')}`}
+          lang={other.code}
+        >
+          {other.short}
         </button>
         <div className="sheet__head">
-          <PhoneArt os={lists[0]} />
+          <PhoneArt os={tab} />
           <div>
             <h2 id="install-title">{t('install.title')}</h2>
             <p className="muted">{t('install.lead')}</p>
           </div>
         </div>
 
-        {lists.map((which) => (
-          <div key={which}>
-            {lists.length > 1 && <h3 className="sheet__os">{which === 'ios' ? 'iPhone / iPad' : 'Android'}</h3>}
-            <ol className="sheet__steps">
-              {t(which === 'ios' ? 'install.iosSteps' : 'install.androidSteps').map((step, i) => (
-                <li key={i}><StepText text={step} /></li>
-              ))}
-            </ol>
-            {which === 'ios' && <p className="footnote">{t('install.iosOther')}</p>}
-          </div>
-        ))}
+        <div className="segmented sheet__tabs" role="tablist" aria-label={t('install.tabsLabel')}>
+          {['ios', 'android'].map((which) => (
+            <button
+              key={which}
+              role="tab"
+              id={`install-tab-${which}`}
+              aria-selected={tab === which}
+              aria-controls="install-steps"
+              className={`segmented__item ${tab === which ? 'segmented__item--on' : ''}`}
+              onClick={() => setTab(which)}
+            >
+              {t(`install.tab.${which}`)}
+            </button>
+          ))}
+        </div>
 
-        {canPrompt && os === 'android' && (
+        <div id="install-steps" role="tabpanel" aria-labelledby={`install-tab-${tab}`}>
+          <ol className="sheet__steps">
+            {t(tab === 'ios' ? 'install.iosSteps' : 'install.androidSteps').map((step, i) => (
+              <li key={`${tab}${i}`}><StepText text={step} /></li>
+            ))}
+          </ol>
+          <p className="footnote">{t(tab === 'ios' ? 'install.iosOther' : 'install.androidOther')}</p>
+        </div>
+
+        {tab === 'android' && os === 'android' && canPrompt && (
           <button className="btn btn--primary btn--block" onClick={installNow}>{t('install.installNow')}</button>
         )}
-        <button className="btn btn--ghost btn--block" onClick={notNow}>{t('install.notNow')}</button>
+        {installed && <p className="ok-note" role="status">{t('install.openFromIcon')}</p>}
+        <p className="sheet__after">{t('install.after')}</p>
       </div>
     </div>
   )

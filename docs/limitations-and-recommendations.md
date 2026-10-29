@@ -7,6 +7,7 @@
 - **No real routing to the JMB or MBPJ.** Assigning a report to "JMB maintenance team", "Waste collection contractor" or "MBPJ (referred)" only changes a label. No one is notified, and residents get no real updates.
 - **No sign-in on the management view.** Anyone with the link can open `/admin` and change report statuses. This is fine for a demo but would not be acceptable with real data.
 - **Unverified content.** Drop-off points, opening hours and the collection schedule are sample data (tagged "Sample" in the app). Block names and the site map are placeholders. The sorting guide follows general Malaysian practice and has not yet been checked against official sources. See `content-verification.md`.
+- **Home screen required on phones.** A phone can only use the app after adding it to the home screen (about 30 seconds). Someone whose QR scan opens inside another app (WhatsApp, Instagram, a scanner app) has to open it in Safari or Chrome first, and a phone that can't add web apps to the home screen can't use it at all.
 - **Approximate distances.** Walking distances come from rough positions on a drawn site map, not real measurements or GPS.
 - **Bahasa Melayu is a draft.** The app switches between English and Bahasa Melayu, but the BM text was drafted by the prototype owner and still needs a fluent speaker to check it. There is no Chinese or Tamil yet.
 - **Not reviewed for accessibility.** Colour contrast, text size and screen-reader support have not been formally tested.

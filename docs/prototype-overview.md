@@ -27,7 +27,7 @@ It is a **prototype with simulated data**. Nothing is sent to the JMB, MBPJ or a
 | Only verified info shown as fact | Drop-off points, schedule and announcements are tagged "Sample". See `content-verification.md` for what is still unverified |
 | Offline backup | Service worker caches the app after the first visit, so it opens without Wi-Fi |
 | Bahasa Melayu and English (plan's infographic is BM + English) | Whole app in both languages, English by default; BM/EN button on Home, or Settings → Language |
-| Usable on every phone | Dark mode (Settings), and an "Add to Home Screen" guide that opens until the app is installed |
+| Usable on every phone | Dark mode (Settings). On phones the app must be added to the home screen: until then a page with iPhone and Android steps covers it (computers aren't blocked) |
 | Software / hosting budget RM 0 | Free tools only: React, Vite, GitHub, Vercel free tier |
 
 ## Screens
@@ -60,7 +60,7 @@ Screenshots of every screen are in `docs/screenshots/` (see "Screenshots" below)
 - Hosted on Vercel (free tier), deployed from GitHub (`cupk3k/wastewise`).
 - All content in `src/data/` so teammates can update text without touching screens. Every piece of text, in English and Bahasa Melayu, is in `src/data/lang/en.js` and `src/data/lang/ms.js`.
 - Language and dark mode are saved per phone (`wastewise.prefs.v1`), separate from the demo data.
-- An "Add to Home Screen" sheet opens on phones when the app is used in the browser; it never shows once the app is opened from the home screen.
+- On phones and tablets the app only works from the home screen icon. Opened in the browser, a page with step-by-step iPhone and Android instructions covers it and can't be closed. Computers aren't blocked, so it can still be shown on a laptop.
 
 ## Run locally
 

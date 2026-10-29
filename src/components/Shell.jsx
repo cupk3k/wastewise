@@ -2,7 +2,7 @@ import Icon from './Icon.jsx'
 import { Link, usePath } from '../router.jsx'
 import { useStore } from '../store.jsx'
 import { t } from '../i18n.js'
-import InstallSheet from './InstallSheet.jsx'
+import InstallSheet, { useInstallGate } from './InstallSheet.jsx'
 
 const TABS = [
   { to: '/', label: 'home', icon: 'home', match: (p) => p === '/' || p.startsWith('/announcements') || p.startsWith('/schedule') },
@@ -23,13 +23,14 @@ export function DemoBanner({ admin }) {
 export function ResidentShell({ children }) {
   const path = usePath()
   const { saveError } = useStore()
+  const blocked = useInstallGate()
   return (
     <div className="shell">
       <DemoBanner />
       {saveError && <div className="save-error">{t('shell.saveError')}</div>}
-      <main className="shell__main">{children}</main>
-      <InstallSheet />
-      <nav className="tabbar" aria-label={t('shell.tabsLabel')}>
+      <main className="shell__main" inert={blocked}>{children}</main>
+      {blocked && <InstallSheet />}
+      <nav className="tabbar" aria-label={t('shell.tabsLabel')} inert={blocked}>
         {TABS.map((tab) => {
           const active = tab.match(path)
           return (
@@ -51,11 +52,13 @@ export function ResidentShell({ children }) {
 
 export function AdminShell({ children }) {
   const { saveError } = useStore()
+  const blocked = useInstallGate()
   return (
     <div className="shell shell--admin">
       <DemoBanner admin />
       {saveError && <div className="save-error">{t('shell.saveError')}</div>}
-      <main className="shell__main shell__main--admin">{children}</main>
+      <main className="shell__main shell__main--admin" inert={blocked}>{children}</main>
+      {blocked && <InstallSheet />}
     </div>
   )
 }

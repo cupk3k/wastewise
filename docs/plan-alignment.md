@@ -81,7 +81,7 @@ How the WasteWise prototype lines up with `CSPH_FET_Tutorial4_Group1_ProjectPlan
 
 ## 2. Happy-path tests
 
-Run on a phone with the live link. **Start state:** Home → gear icon (top right) → **Reset demo data** → **OK**. The app is then on Blok 6.
+Run on a phone with the live link. **Start state:** on a phone, WasteWise only works from the home screen icon, so do **HP13** first (add it to the home screen) and run every other test in the app opened from that icon. Then gear icon (top right) → **Reset demo data** → **OK**. The app is then on Blok 6.
 
 Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave the results below.
 
@@ -142,7 +142,7 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 ### HP9. QR code
 *Plan: Output "QR-code poster ... launch the digital prototype immediately".*
 1. Show `docs/qr/wastewise-qr.png` on a screen or print it.
-2. Scan with an iPhone Camera and an Android camera. **Expect:** Home of the live app opens.
+2. Scan with an iPhone Camera and an Android camera. **Expect:** the live app opens with the "Add WasteWise to your home screen" page on top (on a phone that hasn't added it yet).
 
 ### HP10. Reset between testers
 *Plan: Activity 9 (usability testing with ~10 users).*
@@ -159,9 +159,11 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 1. Gear → **Dark mode** on. **Expect:** dark background, light text; bin colours, status chips and the map still readable.
 2. Reload. **Expect:** still dark. Turn it off again.
 
-### HP13. Add to Home Screen guide
+### HP13. Add to Home Screen (required on phones)
 *Plan: Materials "QR code ... on their own phones"; Anticipated problems (offline).*
-1. On a phone, open the link in Safari (iPhone) or Chrome (Android). **Expect:** a sheet "Add WasteWise to your home screen" with three steps for that phone and a small picture of where to tap.
-2. Tap **Not now**. **Expect:** it closes and doesn't come back on other pages during this visit.
-3. Gear → **Add to Home Screen → Show me how**. **Expect:** the sheet opens again.
-4. Follow the steps, then open WasteWise from the new home screen icon. **Expect:** no sheet, and Settings says "WasteWise is on your home screen."
+1. On a phone, open the link in Safari (iPhone) or Chrome (Android). **Expect:** the page "Add WasteWise to your home screen" covers the app, with two tabs. An iPhone opens on **iPhone / iPad**, an Android phone on **Android**.
+2. Tap the other tab. **Expect:** that phone's three steps and picture.
+3. Tap the dark area above the page, or try to swipe it down. **Expect:** it stays; there is no close or "Not now" button, and the app behind can't be tapped.
+4. Tap **BM** on the page. **Expect:** the steps switch to Bahasa Melayu. Tap **EN** to go back.
+5. Follow the steps for your phone, then open WasteWise from the new icon. **Expect:** no page on top; the app works normally.
+6. *(Check)* Open the link on a laptop. **Expect:** no page on top (computers aren't blocked).

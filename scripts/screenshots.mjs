@@ -49,10 +49,10 @@ try {
     hasTouch: true,
     serviceWorkers: 'block',
   })
-  // Language and theme as chosen, and no "Add to Home Screen" sheet over the screens.
+  // Language and theme as chosen. The browser here is a desktop one, so the phone-only
+  // "Add to Home Screen" gate doesn't cover the screens.
   await context.addInitScript(([l, th]) => {
     localStorage.setItem('wastewise.prefs.v1', JSON.stringify({ lang: l, theme: th }))
-    sessionStorage.setItem('wastewise.installSheet.dismissed', '1')
   }, [lang, theme])
   const page = await context.newPage()
   for (const [name, path] of SCREENS) {
