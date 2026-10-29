@@ -1,12 +1,21 @@
 // Saves a PNG of every screen to docs/screenshots/ for the report and the demo-day backup.
 // Run with `npm run screenshots` (builds first). Needs `npx playwright install chromium` once.
+// Other versions: `npm run screenshots -- --lang ms` (Bahasa Melayu) and/or `--theme dark`;
+// those go in docs/screenshots/ms/, docs/screenshots/dark/ or docs/screenshots/ms-dark/.
 // Each run starts from fresh seed data at a 390 × 844 phone viewport (saved at 2x pixels).
 // docs/screenshots/*.png is what the phone screen shows; full/ has the whole page, tab bar at the end.
 import { mkdir } from 'node:fs/promises'
 import { preview } from 'vite'
 import { chromium } from 'playwright'
 
-const OUT = new URL('../docs/screenshots/', import.meta.url)
+const arg = (name, fallback) => {
+  const i = process.argv.indexOf(`--${name}`)
+  return i > 0 ? process.argv[i + 1] : fallback
+}
+const lang = arg('lang', 'en') === 'ms' ? 'ms' : 'en'
+const theme = arg('theme', 'light') === 'dark' ? 'dark' : 'light'
+const variant = [lang === 'ms' && 'ms', theme === 'dark' && 'dark'].filter(Boolean).join('-')
+const OUT = new URL(`../docs/screenshots/${variant ? `${variant}/` : ''}`, import.meta.url)
 const FULL = new URL('full/', OUT)
 // In a full-page capture the fixed tab bar would land mid-page, so put it in the flow instead.
 const STATIC_BARS = '.tabbar { position: static !important; transform: none !important; margin: 0 auto; }'
@@ -40,6 +49,11 @@ try {
     hasTouch: true,
     serviceWorkers: 'block',
   })
+  // Language and theme as chosen, and no "Add to Home Screen" sheet over the screens.
+  await context.addInitScript(([l, th]) => {
+    localStorage.setItem('wastewise.prefs.v1', JSON.stringify({ lang: l, theme: th }))
+    sessionStorage.setItem('wastewise.installSheet.dismissed', '1')
+  }, [lang, theme])
   const page = await context.newPage()
   for (const [name, path] of SCREENS) {
     await page.goto(base + path, { waitUntil: 'networkidle' })
@@ -48,7 +62,7 @@ try {
     const bars = await page.addStyleTag({ content: STATIC_BARS })
     await page.screenshot({ path: new URL(`${name}.png`, FULL).pathname, fullPage: true })
     await bars.evaluate((el) => el.remove())
-    console.log(`saved ${name}.png  (${path})`)
+    console.log(`saved ${variant || 'en'}/${name}.png  (${path})`)
   }
 } finally {
   await browser.close()

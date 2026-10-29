@@ -2,7 +2,8 @@ import { useRef, useState } from 'react'
 import Icon from '../components/Icon.jsx'
 import { useNavigate } from '../router.jsx'
 import { useStore } from '../store.jsx'
-import { CATEGORIES } from '../data/reports.js'
+import { categoryList } from '../data/reports.js'
+import { t, tl } from '../i18n.js'
 import { BLOCKS, SPOTS } from '../data/site.js'
 import { PageHeader, Photo } from '../components/ui.jsx'
 import { compressImage } from '../components/samplePhotos.js'
@@ -24,12 +25,9 @@ export default function ReportForm() {
   const [tried, setTried] = useState(false)
 
   const errors = {
-    category: !category ? 'Choose what the problem is.' : '',
-    spot: !spot ? 'Choose where it is.' : '',
-    description:
-      description.trim().length < MIN_DESC
-        ? `Describe the problem in at least ${MIN_DESC} characters.`
-        : '',
+    category: !category ? t('report.errCategory') : '',
+    spot: !spot ? t('report.errSpot') : '',
+    description: description.trim().length < MIN_DESC ? t('report.errDescription', { n: MIN_DESC }) : '',
   }
   const hasErrors = Object.values(errors).some(Boolean)
 
@@ -40,7 +38,7 @@ export default function ReportForm() {
     setPhotoError('')
     setPhotoBusy(true)
     try {
-      setPhoto(await compressImage(file))
+      setPhoto(await compressImage(file, { read: t('report.errRead'), image: t('report.errImage') }))
     } catch (err) {
       setPhotoError(err.message)
     } finally {
@@ -64,13 +62,13 @@ export default function ReportForm() {
 
   return (
     <div className="page">
-      <PageHeader title="Report a problem" subtitle="Sent to building management" />
+      <PageHeader title={t('report.title')} subtitle={t('report.subtitle')} />
 
       <form className="form" onSubmit={onSubmit} noValidate>
         <fieldset className="form__group" data-invalid={!!show('category')}>
-          <legend>What is the problem?</legend>
+          <legend>{t('report.what')}</legend>
           <div className="choice-grid">
-            {CATEGORIES.map((c) => (
+            {categoryList().map((c) => (
               <label key={c.id} className={`choice ${category === c.id ? 'choice--on' : ''}`}>
                 <input
                   type="radio"
@@ -88,19 +86,19 @@ export default function ReportForm() {
         </fieldset>
 
         <fieldset className="form__group" data-invalid={!!show('spot')}>
-          <legend>Where is it?</legend>
+          <legend>{t('report.where')}</legend>
           <div className="two-col">
             <label className="field">
-              <span>Block</span>
+              <span>{t('report.block')}</span>
               <select value={block} onChange={(e) => setBlock(e.target.value)}>
                 {BLOCKS.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
               </select>
             </label>
             <label className="field">
-              <span>Spot</span>
+              <span>{t('report.spot')}</span>
               <select value={spot} onChange={(e) => setSpot(e.target.value)} aria-invalid={!!show('spot')}>
-                <option value="">Choose…</option>
-                {SPOTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                <option value="">{t('report.choose')}</option>
+                {SPOTS.map((s) => <option key={s} value={s}>{tl(s)}</option>)}
               </select>
             </label>
           </div>
@@ -108,14 +106,14 @@ export default function ReportForm() {
         </fieldset>
 
         <fieldset className="form__group" data-invalid={!!show('description')}>
-          <legend>Describe it</legend>
+          <legend>{t('report.describe')}</legend>
           <label className="field">
-            <span className="visually-hidden">Description</span>
+            <span className="visually-hidden">{t('report.descriptionLabel')}</span>
             <textarea
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="e.g. Bags piled outside the bin centre since Monday, smell is strong."
+              placeholder={t('report.descriptionPlaceholder')}
               aria-invalid={!!show('description')}
               maxLength={500}
             />
@@ -127,24 +125,24 @@ export default function ReportForm() {
         </fieldset>
 
         <fieldset className="form__group">
-          <legend>Photo <span className="optional">optional</span></legend>
+          <legend>{t('report.photo')} <span className="optional">{t('common.optional')}</span></legend>
           <input ref={fileRef} type="file" accept="image/*" onChange={onPick} hidden />
           {photo ? (
             <div className="photo-preview">
-              <Photo src={photo} alt="Attached photo" />
+              <Photo src={photo} alt={t('report.photoAlt')} />
               <div className="photo-preview__actions">
-                <span className="attached"><Icon name="checkCircle" size={18} /> Photo attached</span>
-                <button type="button" className="btn btn--small btn--ghost" onClick={() => setPhoto(null)}>Remove</button>
+                <span className="attached"><Icon name="checkCircle" size={18} /> {t('report.attached')}</span>
+                <button type="button" className="btn btn--small btn--ghost" onClick={() => setPhoto(null)}>{t('report.remove')}</button>
               </div>
             </div>
           ) : (
             <div className="photo-pick">
               <button type="button" className="photo-pick__main" onClick={() => fileRef.current?.click()} disabled={photoBusy}>
                 <Icon name="camera" size={28} />
-                <span>{photoBusy ? 'Adding photo…' : 'Take or choose a photo'}</span>
+                <span>{photoBusy ? t('report.adding') : t('report.takePhoto')}</span>
               </button>
               <button type="button" className="text-link" onClick={() => setPhoto(`sample:${category === 'dumping' || category === 'bulky' ? 'dumping' : category === 'drain' ? 'drain' : 'overflow'}`)}>
-                Use a sample photo instead
+                {t('report.useSample')}
               </button>
             </div>
           )}
@@ -152,10 +150,10 @@ export default function ReportForm() {
         </fieldset>
 
         {tried && hasErrors && (
-          <p className="form-summary" role="alert">Fill in the highlighted parts to send your report.</p>
+          <p className="form-summary" role="alert">{t('report.summary')}</p>
         )}
-        <button type="submit" className="btn btn--primary btn--block btn--large">Send report</button>
-        <p className="footnote">Prototype: reports are saved on this device only and are not sent to anyone.</p>
+        <button type="submit" className="btn btn--primary btn--block btn--large">{t('report.send')}</button>
+        <p className="footnote">{t('report.footnote')}</p>
       </form>
     </div>
   )

@@ -9,7 +9,9 @@ For about 10 testers (convenience sample). One facilitator and, if possible, one
 1. On the test phone open **Settings** (gear icon, top right of Home), tap **Reset demo data**, then **OK**. This removes reports from the last tester and restores the sample reports. The app is set to **Blok 6** after a reset; leave it on Blok 6.
 2. Go back to **Home**.
 3. Have a photo ready on the phone (any picture of rubbish or a bin), or tell the tester they may use the "Use a sample photo instead" button.
-4. Start a new observation sheet.
+4. Check the language and look: **English** (the button on Home says "BM") and dark mode off, unless the tester asks for Bahasa Melayu. Language and dark mode are not changed by the reset.
+5. If an "Add WasteWise to your home screen" sheet covers the screen, tap **Not now** (or add the app to the home screen beforehand, then it never shows). Don't start the timer while it is open.
+6. Start a new observation sheet.
 
 ## Facilitator script
 

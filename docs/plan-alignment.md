@@ -51,7 +51,7 @@ How the WasteWise prototype lines up with `CSPH_FET_Tutorial4_Group1_ProjectPlan
 | Reporting form: upload photos, choose categories, input locations | All three | ✅ |
 | Admin view with dummy reports, statuses "Submitted", "Under Review", "Resolved" | Same three statuses, assign + notes | ✅ |
 | QR-code poster that launches the prototype | QR code ready; poster design ➖ | ✅ |
-| Infographic in Bahasa Melayu and English | App is English only | ➖ infographic is separate; app BM toggle undecided |
+| Infographic in Bahasa Melayu and English | App also switches between English (default) and Bahasa Melayu | ➖ infographic is separate · ✅ app is bilingual (BM text needs a fluent speaker's check) |
 | Usability dataset: navigation, readability, visual hierarchy, reporting form | Questionnaire covers all four | ✅ |
 | Report: iterations, feature comparison, usability findings, limitations, recommendations | Limitations/recommendations and this comparison drafted | ⚠️ team writes the rest |
 
@@ -76,7 +76,7 @@ How the WasteWise prototype lines up with `CSPH_FET_Tutorial4_Group1_ProjectPlan
 1. Real Desa Mentari block names and rough layout.
 2. Verify schedule, drop-off points and sorting guide, or remove what can't be verified (activity 3).
 3. Plan wording: Figma → web app (`plan-changes.md`).
-4. Bahasa Melayu toggle in the app: yes or no.
+4. Have a fluent BM speaker check `src/data/lang/ms.js`.
 5. Sample announcement dates around demo day (Christmas notice is dated 18 Dec, after demo day).
 
 ## 2. Happy-path tests
@@ -143,6 +143,24 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 *Plan: Output "QR-code poster ... launch the digital prototype immediately".*
 1. Show `docs/qr/wastewise-qr.png` on a screen or print it.
 2. Scan with an iPhone Camera and an Android camera. **Expect:** Home of the live app opens.
+
+### HP11. Language switch
+*Plan: Outputs "simple Bahasa Melayu and English" (infographic); Target audience: Desa Mentari residents.*
+1. On Home, tap **BM** (top right). **Expect:** everything turns to Bahasa Melayu ("Kutipan seterusnya", tabs "Utama", "Asingkan", "Lapor"…); the button now says **EN**.
+2. Open Sort → Plastik, Recycle, My reports → WW-0104. **Expect:** guide, drop-off points, sample reports and statuses ("Selesai") all in BM.
+3. Reload the page. **Expect:** still BM. Tap **EN** to go back.
+
+### HP12. Dark mode
+*Plan: Usability "text readability".*
+1. Gear → **Dark mode** on. **Expect:** dark background, light text; bin colours, status chips and the map still readable.
+2. Reload. **Expect:** still dark. Turn it off again.
+
+### HP13. Add to Home Screen guide
+*Plan: Materials "QR code ... on their own phones"; Anticipated problems (offline).*
+1. On a phone, open the link in Safari (iPhone) or Chrome (Android). **Expect:** a sheet "Add WasteWise to your home screen" with three steps for that phone and a small picture of where to tap.
+2. Tap **Not now**. **Expect:** it closes and doesn't come back on other pages during this visit.
+3. Gear → **Add to Home Screen → Show me how**. **Expect:** the sheet opens again.
+4. Follow the steps, then open WasteWise from the new home screen icon. **Expect:** no sheet, and Settings says "WasteWise is on your home screen."
 
 ### HP10. Reset between testers
 *Plan: Activity 9 (usability testing with ~10 users).*

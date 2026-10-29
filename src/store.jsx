@@ -1,6 +1,7 @@
 // App state kept in localStorage (simulated backend).
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
 import { createSeedState } from './data/reports.js'
+import en from './data/lang/en.js'
 
 const KEY = 'wastewise.demo.v1'
 const StoreContext = createContext(null)
@@ -40,14 +41,14 @@ function reducer(state, action) {
 
 export function StoreProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, undefined, load)
-  const [saveError, setSaveError] = useState(null)
+  const [saveError, setSaveError] = useState(false)
 
   useEffect(() => {
     try {
       localStorage.setItem(KEY, JSON.stringify(state))
-      setSaveError(null)
+      setSaveError(false)
     } catch {
-      setSaveError('Storage is full. Remove photos or reset the demo data in Settings.')
+      setSaveError(true) // the shell shows the message in the current language
     }
   }, [state])
 
@@ -73,8 +74,8 @@ export function StoreProvider({ children }) {
           spot,
           description: description.trim(),
           photo: photo ?? null,
-          assignee: 'Not assigned',
-          history: [{ status: 'Submitted', at: Date.now(), note: 'Report received.' }],
+          assignee: en.assignees.none,
+          history: [{ status: 'Submitted', at: Date.now(), note: en.notes.received }],
         },
       })
       return id
@@ -113,10 +114,9 @@ export function StoreProvider({ children }) {
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
 }
 
+// Stored in English like everything else; shown translated through tl().
 function defaultNote(status) {
-  if (status === 'Under review') return 'Management is looking into this.'
-  if (status === 'Resolved') return 'Issue has been resolved.'
-  return 'Status updated.'
+  return en.notes[status] ?? en.notes.other
 }
 
 export function useStore() {

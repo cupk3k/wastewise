@@ -5,7 +5,7 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 ## One week before
 
 - [ ] Final version deployed on Vercel. URL: **https://wastewise-desa-mentari.vercel.app** (checked 29 Oct 2026: deep links and offline after one visit both work)
-- [ ] QR code: use `docs/qr/wastewise-qr.png` (or `.svg` for large prints). It encodes the final URL; if the URL ever changes, edit it in `scripts/qr.mjs` and run `npm run qr`. Paste it onto the poster.
+- [ ] QR code: use `docs/qr/wastewise-qr.png` (or `.svg` for large prints). It encodes the final URL; if the URL ever changes, follow `change-link-and-qr.md`. Paste it onto the poster.
 - [ ] Test the QR code on the printed poster with an **iPhone** (Camera app) and an **Android** phone (Camera or Google Lens). Both open the Home screen.
 - [ ] Open a deep link directly, e.g. `https://wastewise-desa-mentari.vercel.app/guide/plastic`, to confirm it loads.
 - [ ] Run `npm run screenshots` and check every PNG in `docs/screenshots/`.
@@ -24,7 +24,8 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 ## On the day, before visitors arrive
 
 - [ ] **Reset demo data** on every demo phone (gear icon on Home → Reset demo data → OK).
-- [ ] Check the app shows Blok 6 on Home.
+- [ ] Check the app shows Blok 6 on Home, in English (the button says "BM") with dark mode off.
+- [ ] Visitors who scan the QR code see the "Add to Home Screen" guide first: that is expected. They can follow it or tap "Not now".
 - [ ] Set up a **phone hotspot** as backup Wi-Fi, in case the venue Wi-Fi fails.
 - [ ] Poster QR code visible and scannable from about 30 cm.
 - [ ] Usability test kit ready: observation sheets, timer, Google Form link or QR.

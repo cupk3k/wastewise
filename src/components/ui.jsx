@@ -2,13 +2,14 @@ import Icon from './Icon.jsx'
 import { Link, useBack } from '../router.jsx'
 import { statusOf } from '../data/reports.js'
 import { samplePhoto } from './samplePhotos.js'
+import { locale, t, tl } from '../i18n.js'
 
 export function PageHeader({ title, back, right, subtitle }) {
   const goBack = useBack(back || '/')
   return (
     <header className="page-header">
       {back !== undefined ? (
-        <button className="icon-btn" onClick={goBack} aria-label="Go back">
+        <button className="icon-btn" onClick={goBack} aria-label={t('common.back')}>
           <Icon name="back" />
         </button>
       ) : (
@@ -26,13 +27,13 @@ export function PageHeader({ title, back, right, subtitle }) {
 export function StatusChip({ status, report }) {
   const s = status || statusOf(report)
   const cls = s === 'Resolved' ? 'resolved' : s === 'Under review' ? 'review' : 'submitted'
-  return <span className={`status status--${cls}`}>{s}</span>
+  return <span className={`status status--${cls}`}>{tl(s)}</span>
 }
 
-export function SampleTag({ children = 'Sample' }) {
+export function SampleTag({ children }) {
   return (
-    <span className="sample-tag" title="Simulated data for the prototype — not verified service information">
-      {children}
+    <span className="sample-tag" title={t('common.sampleTitle')}>
+      {children ?? t('common.sample')}
     </span>
   )
 }
@@ -48,12 +49,12 @@ export function RowLink({ to, children, className = '' }) {
 
 export function Photo({ src, alt, className = '' }) {
   if (!src) return null
-  const url = src.startsWith('sample:') ? samplePhoto(src.slice(7)) : src
+  const url = src.startsWith('sample:') ? samplePhoto(src.slice(7), t('common.samplePhoto')) : src
   return <img className={`photo ${className}`} src={url} alt={alt} />
 }
 
 export function formatDateTime(ms) {
-  return new Date(ms).toLocaleString('en-MY', {
+  return new Date(ms).toLocaleString(locale(), {
     day: 'numeric',
     month: 'short',
     hour: 'numeric',
@@ -63,14 +64,14 @@ export function formatDateTime(ms) {
 
 export function timeAgo(ms) {
   const mins = Math.round((Date.now() - ms) / 60000)
-  if (mins < 1) return 'just now'
-  if (mins < 60) return `${mins} min ago`
+  if (mins < 1) return t('time.justNow')
+  if (mins < 60) return t('time.minAgo', { n: mins })
   const hrs = Math.round(mins / 60)
-  if (hrs < 24) return `${hrs} h ago`
+  if (hrs < 24) return t('time.hoursAgo', { n: hrs })
   const days = Math.round(hrs / 24)
-  return `${days} day${days === 1 ? '' : 's'} ago`
+  return t(days === 1 ? 'time.dayAgo' : 'time.daysAgo', { n: days })
 }
 
 export function formatDate(d, opts = { weekday: 'long', day: 'numeric', month: 'long' }) {
-  return d.toLocaleDateString('en-MY', opts)
+  return d.toLocaleDateString(locale(), opts)
 }

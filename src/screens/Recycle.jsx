@@ -2,19 +2,20 @@ import { useState } from 'react'
 import Icon from '../components/Icon.jsx'
 import { Link } from '../router.jsx'
 import { useStore } from '../store.jsx'
-import { PLACES, placeById } from '../data/places.js'
-import { GUIDE, guideById } from '../data/guide.js'
+import { placeList, placeById } from '../data/places.js'
+import { guideList, guideById } from '../data/guide.js'
+import { t } from '../i18n.js'
 import { BLOCKS, blockById, distanceMetres, walkMinutes } from '../data/site.js'
 import { PageHeader, SampleTag } from '../components/ui.jsx'
 import NotFound from './NotFound.jsx'
 
 function SiteMap({ highlight, from, places }) {
   return (
-    <svg className="site-map" viewBox="0 0 100 100" role="img" aria-label="Map of Desa Mentari blocks and drop-off points">
+    <svg className="site-map" viewBox="0 0 100 100" role="img" aria-label={t('recycle.mapLabel')}>
       <rect x="0" y="0" width="100" height="100" rx="3" className="site-map__ground" />
       <path d="M0 32 H100 M0 64 H100 M30 0 V100 M66 0 V100" className="site-map__road" />
       <rect x="34" y="56" width="16" height="10" rx="1.5" className="site-map__hall" />
-      <text x="42" y="69.5" className="site-map__hall-label">Hall</text>
+      <text x="42" y="69.5" className="site-map__hall-label">{t('recycle.hall')}</text>
       {BLOCKS.map((b) => (
         <g key={b.id}>
           <rect
@@ -42,18 +43,19 @@ export function RecycleList() {
   const [filter, setFilter] = useState('all')
   const from = blockById(myBlock)
 
-  const list = PLACES.filter((p) => filter === 'all' || p.accepts.includes(filter))
+  const places = placeList()
+  const list = places.filter((p) => filter === 'all' || p.accepts.includes(filter))
     .map((p) => ({ ...p, dist: distanceMetres(from, p) }))
     .sort((a, b) => a.dist - b.dist)
 
-  const filters = [{ id: 'all', name: 'All' }, ...GUIDE.filter((g) => PLACES.some((p) => p.accepts.includes(g.id)))]
+  const filters = [{ id: 'all', name: t('recycle.all') }, ...guideList().filter((g) => places.some((p) => p.accepts.includes(g.id)))]
 
   return (
     <div className="page">
-      <PageHeader title="Drop-off points" subtitle="Nearest first" />
+      <PageHeader title={t('recycle.title')} subtitle={t('recycle.subtitle')} />
 
       <label className="field field--inline">
-        <span>I live in</span>
+        <span>{t('recycle.iLiveIn')}</span>
         <select value={myBlock} onChange={(e) => setBlock(e.target.value)}>
           {BLOCKS.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
         </select>
@@ -61,12 +63,12 @@ export function RecycleList() {
 
       <SiteMap from={from} places={list} highlight={list[0]?.id} />
       <p className="map-legend">
-        <span className="legend-dot legend-dot--me" /> Your block
-        <span className="legend-dot legend-dot--pin" /> Drop-off point
-        <span className="legend-dot legend-dot--near" /> Nearest
+        <span className="legend-dot legend-dot--me" /> {t('recycle.legendMe')}
+        <span className="legend-dot legend-dot--pin" /> {t('recycle.legendPin')}
+        <span className="legend-dot legend-dot--near" /> {t('recycle.legendNear')}
       </p>
 
-      <div className="chips" role="group" aria-label="Filter by waste type">
+      <div className="chips" role="group" aria-label={t('recycle.filterLabel')}>
         {filters.map((f) => (
           <button
             key={f.id}
@@ -84,11 +86,11 @@ export function RecycleList() {
           <Link key={p.id} to={`/recycle/${p.id}`} className={`place ${i === 0 ? 'place--nearest' : ''}`}>
             <div className="place__top">
               <strong>{p.name}</strong>
-              {i === 0 && <span className="nearest-tag">Nearest</span>}
+              {i === 0 && <span className="nearest-tag">{t('recycle.nearest')}</span>}
             </div>
             <span className="muted">{p.where}</span>
             <div className="place__meta">
-              <span><Icon name="walk" size={16} /> {p.dist} m, about {walkMinutes(p.dist)} min</span>
+              <span><Icon name="walk" size={16} /> {t('recycle.walk', { m: p.dist, min: walkMinutes(p.dist) })}</span>
               {p.sample && <SampleTag />}
             </div>
             <div className="accepts">
@@ -100,7 +102,7 @@ export function RecycleList() {
           </Link>
         ))}
       </div>
-      <p className="footnote">Drop-off points are sample locations until verified with the JMB.</p>
+      <p className="footnote">{t('recycle.footnote')}</p>
     </div>
   )
 }
@@ -118,17 +120,17 @@ export function RecycleDetail({ id }) {
       <SiteMap from={from} places={[p]} highlight={p.id} />
       {p.sample && (
         <p className="sample-note">
-          <Icon name="info" size={18} /> Sample location. Details still need to be confirmed with building management.
+          <Icon name="info" size={18} /> {t('recycle.sampleLocation')}
         </p>
       )}
       <dl className="facts">
-        <div><dt><Icon name="pin" size={18} /> Location</dt><dd>{p.where}</dd></div>
-        <div><dt><Icon name="walk" size={18} /> From {from.name}</dt><dd>{dist} m, about {walkMinutes(dist)} min walk</dd></div>
-        <div><dt><Icon name="clock" size={18} /> Opening hours</dt><dd>{p.hours}</dd></div>
+        <div><dt><Icon name="pin" size={18} /> {t('recycle.location')}</dt><dd>{p.where}</dd></div>
+        <div><dt><Icon name="walk" size={18} /> {t('recycle.from', { block: from.name })}</dt><dd>{t('recycle.walkLong', { m: dist, min: walkMinutes(dist) })}</dd></div>
+        <div><dt><Icon name="clock" size={18} /> {t('recycle.hours')}</dt><dd>{p.hours}</dd></div>
       </dl>
 
       <section className="section">
-        <h2>Accepts</h2>
+        <h2>{t('recycle.accepts')}</h2>
         <div className="stack">
           {p.accepts.map((a) => {
             const g = guideById(a)
@@ -144,11 +146,11 @@ export function RecycleDetail({ id }) {
       </section>
 
       <section className="section">
-        <h2>Before you go</h2>
+        <h2>{t('recycle.beforeGo')}</h2>
         <p>{p.notes}</p>
       </section>
 
-      <Link to="/report" className="btn btn--ghost btn--block">Bins here full or damaged? Report it</Link>
+      <Link to="/report" className="btn btn--ghost btn--block">{t('recycle.reportBins')}</Link>
     </div>
   )
 }

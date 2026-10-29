@@ -7,7 +7,9 @@ Every piece of content the prototype shows, and whether it has been checked. Sta
 - **Sample**: realistic but not checked; shown with a "Sample" tag in the app.
 - **Verified**: checked against the source listed; the "Sample" tag can be removed.
 
-**How to update:** send the verified details and source to Jing Liang, who edits the file in `src/data/`. For drop-off points and schedule, `sample: true` is changed to `sample: false` only once the row below is filled in. Fill in the last column with the source (document, website, person and role) and the date it was checked.
+**Where the text is:** every piece of text is in `src/data/lang/en.js` (English) and `src/data/lang/ms.js` (Bahasa Melayu), with the same keys. The other files in `src/data/` hold the structure: block positions, bin colours, map positions, collection days and the `sample` flags.
+
+**How to update:** send the verified details and source to Jing Liang, who edits the files in `src/data/` (both languages). For drop-off points and schedule, `sample: true` is changed to `sample: false` only once the row below is filled in. Fill in the last column with the source (document, website, person and role) and the date it was checked.
 
 ## Site: blocks and map (`src/data/site.js`)
 
@@ -17,7 +19,7 @@ Every piece of content the prototype shows, and whether it has been checked. Sta
 | Block positions on the site map | Placeholder | Rough site layout (site plan, Google Maps, or a walk-through) | Research team | |
 | Spots list (bin centre, lift lobby, corridor, staircase, car park, monsoon drain, playground, roadside) | Sample | Confirm these places exist at Desa Mentari | Research team | |
 
-## Sorting guide (`src/data/guide.js`)
+## Sorting guide (`src/data/guide.js` + `guide` in `lang/en.js` / `lang/ms.js`)
 
 Currently general Malaysian practice, not checked against an official source. The guide screens show no "Sample" tag.
 
@@ -34,7 +36,7 @@ Currently general Malaysian practice, not checked against an official source. Th
 | General waste: general waste bin, yes/no lists | Sample | SWCorp / MBPJ | Research team | |
 | Bin colours (blue = paper, orange = plastic & metal, brown = glass) | Sample | National recycling bin colour scheme (KPKT / SWCorp); colours of the bins actually on site | Research team | |
 
-## Drop-off points (`src/data/places.js`, `PLACES`)
+## Drop-off points (`src/data/places.js` + `places` in `lang/en.js` / `lang/ms.js`)
 
 All tagged "Sample" in the app.
 
@@ -47,7 +49,7 @@ All tagged "Sample" in the app.
 | Used cooking oil drum, Blok 7 bin centre: daily | Sample | JMB / building management; site visit | Research team | |
 | Map position of each point | Placeholder | Site layout | Research team | |
 
-## Collection schedule (`src/data/places.js`, `SCHEDULE`)
+## Collection schedule (`src/data/places.js` + `schedule` in `lang/en.js` / `lang/ms.js`)
 
 All tagged "Sample schedule" in the app.
 
@@ -57,7 +59,7 @@ All tagged "Sample schedule" in the app.
 | Recyclables: Tue from 9:00 am | Sample | Contractor / MBPJ | Research team | |
 | Bulky waste: 2nd and 4th Saturday from 8:00 am | Sample | Contractor / MBPJ | Research team | |
 
-## Announcements (`src/data/announcements.js`)
+## Announcements (`src/data/announcements.js` for dates + `announcements` in `lang/en.js` / `lang/ms.js`)
 
 All tagged "Sample" in the app. These are illustrative; replace with real notices only if the JMB provides them.
 
@@ -71,6 +73,16 @@ All tagged "Sample" in the app. These are illustrative; replace with real notice
 | "Posted by Desa Mentari JMB" byline | Sample | JMB permission to use its name | Research team | |
 
 **Date check before demo day:** the Christmas notice is dated 18 December, one day *after* demo day (17 December). The gotong-royong (5 Dec) and e-waste drive (12 Dec) will already be in the past on demo day. Decide whether to move these dates.
+
+## Bahasa Melayu translation (`src/data/lang/ms.js`)
+
+Drafted by the prototype owner, not by a fluent speaker. It covers every screen, the sorting guide, drop-off points, schedule, announcements and the sample reports.
+
+| Item | Current status | Source needed | Who verifies | Verified source + date |
+|---|---|---|---|---|
+| All interface text (buttons, headings, messages) | Draft | Read through by a fluent BM speaker | Team member fluent in BM | |
+| Sorting guide terms (bin names, waste types, items) | Draft | Match SWCorp / KPKT official BM terms, and the printed infographic | Team member fluent in BM + research team | |
+| Announcements and sample reports | Draft | Read through by a fluent BM speaker | Team member fluent in BM | |
 
 ## Reports (`src/data/reports.js`)
 

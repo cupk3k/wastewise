@@ -2,25 +2,28 @@
 // REPORTS — categories, statuses and simulated seed reports.
 // Seed timestamps are relative to when the demo data is created
 // (or reset), so they always look recent during testing.
+// The text of the sample reports is under `seed` in lang/en.js
+// (stored in English) and lang/ms.js (shown when BM is on).
 // ─────────────────────────────────────────────────────────────
 
-export const CATEGORIES = [
-  { id: 'overflow', name: 'Overflowing bin', hint: 'Bins full, rubbish spilling out' },
-  { id: 'missed', name: 'Missed collection', hint: 'Rubbish not collected on schedule' },
-  { id: 'dumping', name: 'Illegal dumping', hint: 'Rubbish or debris dumped in a public area' },
-  { id: 'bulky', name: 'Bulky waste left out', hint: 'Furniture, mattresses or appliances' },
-  { id: 'drain', name: 'Clogged drain', hint: 'Rubbish blocking a drain' },
-  { id: 'stagnant', name: 'Standing water', hint: 'Dengue risk, mosquito breeding' },
-  { id: 'other', name: 'Other', hint: 'Anything else about waste' },
-]
+import en from './lang/en.js'
+import { text } from '../i18n.js'
 
-export const STATUSES = ['Submitted', 'Under review', 'Resolved']
+const CATEGORY_IDS = ['overflow', 'missed', 'dumping', 'bulky', 'drain', 'stagnant', 'other']
 
-export const ASSIGNEES = ['Not assigned', 'JMB maintenance team', 'Waste collection contractor', 'MBPJ (referred)']
+/** Report categories in the current language. */
+export function categoryList() {
+  return CATEGORY_IDS.map((id) => ({ id, ...text('categories', id) }))
+}
 
 export function categoryById(id) {
-  return CATEGORIES.find((c) => c.id === id)
+  return CATEGORY_IDS.includes(id) ? { id, ...text('categories', id) } : undefined
 }
+
+// Statuses and assignees are stored as these English values; tl() in i18n.js shows them translated.
+export const STATUSES = ['Submitted', 'Under review', 'Resolved']
+
+export const ASSIGNEES = Object.values(en.assignees)
 
 const H = 3600 * 1000
 
@@ -29,96 +32,96 @@ function seed(now) {
   return [
     {
       id: 'WW-0107',
+      description: en.seed['WW-0107'].description,
       mine: true,
       category: 'overflow',
       block: 'b6',
-      spot: 'Bin centre / refuse chamber',
-      description: 'All four bins are full and bags are piled on the floor. Smell is reaching the ground floor units.',
+      spot: en.spots.binCentre,
       photo: 'sample:overflow',
-      assignee: 'Not assigned',
-      history: [{ status: 'Submitted', at: t(5), note: 'Report received.' }],
+      assignee: en.assignees.none,
+      history: [{ status: 'Submitted', at: t(5), note: en.seed['WW-0107'].notes[0] }],
     },
     {
       id: 'WW-0104',
+      description: en.seed['WW-0104'].description,
       mine: true,
       category: 'stagnant',
       block: 'b6',
-      spot: 'Playground',
-      description: 'Old tyres and containers behind the slide are full of rainwater. Lots of mosquitoes in the evening.',
+      spot: en.spots.playground,
       photo: null,
-      assignee: 'JMB maintenance team',
+      assignee: en.assignees.jmb,
       history: [
-        { status: 'Submitted', at: t(52), note: 'Report received.' },
-        { status: 'Under review', at: t(30), note: 'Maintenance team will clear the items on Thursday.' },
-        { status: 'Resolved', at: t(8), note: 'Tyres and containers removed. Area sprayed.' },
+        { status: 'Submitted', at: t(52), note: en.seed['WW-0104'].notes[0] },
+        { status: 'Under review', at: t(30), note: en.seed['WW-0104'].notes[1] },
+        { status: 'Resolved', at: t(8), note: en.seed['WW-0104'].notes[2] },
       ],
     },
     {
       id: 'WW-0106',
+      description: en.seed['WW-0106'].description,
       mine: false,
       category: 'dumping',
       block: 'b9',
-      spot: 'Roadside',
-      description: 'Renovation debris (tiles, cement bags) dumped beside the road overnight.',
+      spot: en.spots.roadside,
       photo: 'sample:dumping',
-      assignee: 'MBPJ (referred)',
+      assignee: en.assignees.mbpj,
       history: [
-        { status: 'Submitted', at: t(20), note: 'Report received.' },
-        { status: 'Under review', at: t(14), note: 'Referred to MBPJ for removal and enforcement.' },
+        { status: 'Submitted', at: t(20), note: en.seed['WW-0106'].notes[0] },
+        { status: 'Under review', at: t(14), note: en.seed['WW-0106'].notes[1] },
       ],
     },
     {
       id: 'WW-0105',
+      description: en.seed['WW-0105'].description,
       mine: false,
       category: 'bulky',
       block: 'b2',
-      spot: 'Lift lobby',
-      description: 'A mattress and broken chair have been left in the lift lobby for three days.',
+      spot: en.spots.liftLobby,
       photo: null,
-      assignee: 'Not assigned',
-      history: [{ status: 'Submitted', at: t(28), note: 'Report received.' }],
+      assignee: en.assignees.none,
+      history: [{ status: 'Submitted', at: t(28), note: en.seed['WW-0105'].notes[0] }],
     },
     {
       id: 'WW-0103',
+      description: en.seed['WW-0103'].description,
       mine: false,
       category: 'drain',
       block: 'b5',
-      spot: 'Monsoon drain',
-      description: 'Plastic bottles and bags blocking the drain. Water overflowed during yesterday\'s rain.',
+      spot: en.spots.drain,
       photo: 'sample:drain',
-      assignee: 'JMB maintenance team',
+      assignee: en.assignees.jmb,
       history: [
-        { status: 'Submitted', at: t(70), note: 'Report received.' },
-        { status: 'Under review', at: t(60), note: 'Cleaning scheduled.' },
+        { status: 'Submitted', at: t(70), note: en.seed['WW-0103'].notes[0] },
+        { status: 'Under review', at: t(60), note: en.seed['WW-0103'].notes[1] },
       ],
     },
     {
       id: 'WW-0102',
+      description: en.seed['WW-0102'].description,
       mine: false,
       category: 'missed',
       block: 'b10',
-      spot: 'Bin centre / refuse chamber',
-      description: 'Rubbish was not collected on Wednesday morning.',
+      spot: en.spots.binCentre,
       photo: null,
-      assignee: 'Waste collection contractor',
+      assignee: en.assignees.contractor,
       history: [
-        { status: 'Submitted', at: t(100), note: 'Report received.' },
-        { status: 'Under review', at: t(96), note: 'Contractor informed.' },
-        { status: 'Resolved', at: t(80), note: 'Collected on Thursday morning.' },
+        { status: 'Submitted', at: t(100), note: en.seed['WW-0102'].notes[0] },
+        { status: 'Under review', at: t(96), note: en.seed['WW-0102'].notes[1] },
+        { status: 'Resolved', at: t(80), note: en.seed['WW-0102'].notes[2] },
       ],
     },
     {
       id: 'WW-0101',
+      description: en.seed['WW-0101'].description,
       mine: false,
       category: 'overflow',
       block: 'b3',
-      spot: 'Bin centre / refuse chamber',
-      description: 'Bins overflowing after the long weekend.',
+      spot: en.spots.binCentre,
       photo: null,
-      assignee: 'Waste collection contractor',
+      assignee: en.assignees.contractor,
       history: [
-        { status: 'Submitted', at: t(150), note: 'Report received.' },
-        { status: 'Resolved', at: t(130), note: 'Extra collection done.' },
+        { status: 'Submitted', at: t(150), note: en.seed['WW-0101'].notes[0] },
+        { status: 'Resolved', at: t(130), note: en.seed['WW-0101'].notes[1] },
       ],
     },
   ]

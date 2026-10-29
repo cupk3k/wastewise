@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from './router.jsx'
 import { StoreProvider } from './store.jsx'
+import { PrefsProvider } from './prefs.jsx'
 import App from './App.jsx'
 import './styles.css'
 
@@ -9,7 +10,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider>
       <StoreProvider>
-        <App />
+        <PrefsProvider>
+          <App />
+        </PrefsProvider>
       </StoreProvider>
     </RouterProvider>
   </StrictMode>

@@ -8,7 +8,7 @@
 - **No sign-in on the management view.** Anyone with the link can open `/admin` and change report statuses. This is fine for a demo but would not be acceptable with real data.
 - **Unverified content.** Drop-off points, opening hours and the collection schedule are sample data (tagged "Sample" in the app). Block names and the site map are placeholders. The sorting guide follows general Malaysian practice and has not yet been checked against official sources. See `content-verification.md`.
 - **Approximate distances.** Walking distances come from rough positions on a drawn site map, not real measurements or GPS.
-- **English only.** The printed infographic is in Bahasa Melayu and English, but the app is in English only.
+- **Bahasa Melayu is a draft.** The app switches between English and Bahasa Melayu, but the BM text was drafted by the prototype owner and still needs a fluent speaker to check it. There is no Chinese or Tamil yet.
 - **Not reviewed for accessibility.** Colour contrast, text size and screen-reader support have not been formally tested.
 - **Small, informal test.** The usability test uses about 10 convenience testers, so results show likely problems rather than measuring all residents.
 
@@ -19,7 +19,7 @@
 3. **Add a backend and notifications.** Store reports on a server so residents and management see the same data on any device, and notify residents when their report status changes (push notification, SMS or WhatsApp).
 4. **Secure the management view.** Add sign-in with staff accounts and roles, and keep a log of who changed what.
 5. **Protect residents' data.** Collect only what is needed, explain how report photos and locations are used, and follow Malaysia's Personal Data Protection Act 2010 (PDPA).
-6. **Add Bahasa Melayu, Chinese and Tamil.** Offer the app in the languages residents actually use, with a language switch on every screen.
+6. **Add Chinese and Tamil, and have all translations checked.** The app already switches between English and Bahasa Melayu; adding a language means one more file in `src/data/lang/` and one line in `src/i18n.js`. Have native speakers check each one.
 7. **Do an accessibility review.** Check colour contrast, larger text, screen-reader labels and simple wording, and test with older residents.
 8. **Test with more residents.** Repeat the usability test with a larger and more varied group of actual Desa Mentari residents, including ones who rarely use apps.
 9. **Plan for residents without smartphones.** Keep printed notices at bin centres and lift lobbies, and a phone or WhatsApp number for reports.

@@ -1,13 +1,14 @@
 import { Link } from '../router.jsx'
 import { PageHeader } from '../components/ui.jsx'
+import { t } from '../i18n.js'
 
 export default function NotFound() {
   return (
     <div className="page">
-      <PageHeader title="Page not found" back="/" />
+      <PageHeader title={t('notFound.title')} back="/" />
       <div className="empty">
-        <p>This page doesn't exist or the item was removed when the demo data was reset.</p>
-        <Link to="/" className="btn btn--primary">Go to home</Link>
+        <p>{t('notFound.body')}</p>
+        <Link to="/" className="btn btn--primary">{t('notFound.home')}</Link>
       </div>
     </div>
   )

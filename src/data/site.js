@@ -5,6 +5,8 @@
 // 0–100 site map used for the locator and distance estimates.
 // ─────────────────────────────────────────────────────────────
 
+import en from './lang/en.js'
+
 export const BLOCKS = [
   { id: 'b1', name: 'Blok 1', x: 14, y: 18 },
   { id: 'b2', name: 'Blok 2', x: 34, y: 14 },
@@ -18,17 +20,9 @@ export const BLOCKS = [
   { id: 'b10', name: 'Blok 10', x: 78, y: 78 },
 ]
 
-// Where in or around a block a problem can be.
-export const SPOTS = [
-  'Bin centre / refuse chamber',
-  'Lift lobby',
-  'Corridor',
-  'Staircase',
-  'Car park',
-  'Monsoon drain',
-  'Playground',
-  'Roadside',
-]
+// Where in or around a block a problem can be. The English names are what reports
+// store; the text for each language is under `spots` in lang/en.js and lang/ms.js.
+export const SPOTS = Object.values(en.spots)
 
 // Approximate metres per map unit (site is roughly 600 m across).
 const METRES_PER_UNIT = 6

@@ -26,6 +26,8 @@ It is a **prototype with simulated data**. Nothing is sent to the JMB, MBPJ or a
 | Data consistent across form, My reports and dashboard | One shared store: a report sent from the form appears in My reports and the dashboard; a status change in the dashboard shows in My reports straight away (also across open tabs) |
 | Only verified info shown as fact | Drop-off points, schedule and announcements are tagged "Sample". See `content-verification.md` for what is still unverified |
 | Offline backup | Service worker caches the app after the first visit, so it opens without Wi-Fi |
+| Bahasa Melayu and English (plan's infographic is BM + English) | Whole app in both languages, English by default; BM/EN button on Home, or Settings → Language |
+| Usable on every phone | Dark mode (Settings), and an "Add to Home Screen" guide that opens until the app is installed |
 | Software / hosting budget RM 0 | Free tools only: React, Vite, GitHub, Vercel free tier |
 
 ## Screens
@@ -43,7 +45,7 @@ It is a **prototype with simulated data**. Nothing is sent to the JMB, MBPJ or a
 | 9 | `/report/sent/:id` | Report sent: reference number and summary |
 | 10 | `/reports` | My reports with a progress bar for each |
 | 11 | `/reports/:id` | One report: details, photo, who is handling it, update timeline |
-| 12 | `/settings` | Your block, link to management view, reset demo data |
+| 12 | `/settings` | Language, dark mode, Add to Home Screen guide, your block, management view, reset demo data |
 | 13 | `/admin` | Management dashboard: all reports, status counts, filters |
 | 14 | `/admin/reports/:id` | Handle one report: assign, change status, add a note for the resident |
 
@@ -56,7 +58,9 @@ Screenshots of every screen are in `docs/screenshots/` (see "Screenshots" below)
 - State in the browser's localStorage (key `wastewise.demo.v1`), shared across tabs. Photos are shrunk to at most 900 px before saving.
 - A hand-written service worker (`public/sw.js`) for offline use, and a web app manifest for "Add to Home Screen".
 - Hosted on Vercel (free tier), deployed from GitHub (`cupk3k/wastewise`).
-- All content in `src/data/` so teammates can update text without touching screens.
+- All content in `src/data/` so teammates can update text without touching screens. Every piece of text, in English and Bahasa Melayu, is in `src/data/lang/en.js` and `src/data/lang/ms.js`.
+- Language and dark mode are saved per phone (`wastewise.prefs.v1`), separate from the demo data.
+- An "Add to Home Screen" sheet opens on phones when the app is used in the browser; it never shows once the app is opened from the home screen.
 
 ## Run locally
 
@@ -80,4 +84,4 @@ npx playwright install chromium   # once
 npm run screenshots               # builds the app, saves PNGs to docs/screenshots/
 ```
 
-Each screen is captured at 390 × 844 (a typical phone) from freshly reset demo data.
+Each screen is captured at 390 × 844 (a typical phone) from freshly reset demo data. `npm run screenshots -- --lang ms` saves the Bahasa Melayu set in `docs/screenshots/ms/`, and `--theme dark` the dark set in `docs/screenshots/dark/`.

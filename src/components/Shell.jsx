@@ -1,19 +1,21 @@
 import Icon from './Icon.jsx'
 import { Link, usePath } from '../router.jsx'
 import { useStore } from '../store.jsx'
+import { t } from '../i18n.js'
+import InstallSheet from './InstallSheet.jsx'
 
 const TABS = [
-  { to: '/', label: 'Home', icon: 'home', match: (p) => p === '/' || p.startsWith('/announcements') || p.startsWith('/schedule') },
-  { to: '/guide', label: 'Sort', icon: 'sort', match: (p) => p.startsWith('/guide') },
-  { to: '/report', label: 'Report', icon: 'report', match: (p) => p.startsWith('/report') && !p.startsWith('/reports'), primary: true },
-  { to: '/recycle', label: 'Recycle', icon: 'recycle', match: (p) => p.startsWith('/recycle') },
-  { to: '/reports', label: 'My reports', icon: 'list', match: (p) => p.startsWith('/reports') },
+  { to: '/', label: 'home', icon: 'home', match: (p) => p === '/' || p.startsWith('/announcements') || p.startsWith('/schedule') },
+  { to: '/guide', label: 'sort', icon: 'sort', match: (p) => p.startsWith('/guide') },
+  { to: '/report', label: 'report', icon: 'report', match: (p) => p.startsWith('/report') && !p.startsWith('/reports'), primary: true },
+  { to: '/recycle', label: 'recycle', icon: 'recycle', match: (p) => p.startsWith('/recycle') },
+  { to: '/reports', label: 'reports', icon: 'list', match: (p) => p.startsWith('/reports') },
 ]
 
 export function DemoBanner({ admin }) {
   return (
     <div className={`demo-banner ${admin ? 'demo-banner--admin' : ''}`} role="note">
-      {admin ? 'Management view prototype with simulated reports' : 'Prototype with simulated data'}
+      {t(admin ? 'shell.bannerAdmin' : 'shell.banner')}
     </div>
   )
 }
@@ -24,20 +26,21 @@ export function ResidentShell({ children }) {
   return (
     <div className="shell">
       <DemoBanner />
-      {saveError && <div className="save-error">{saveError}</div>}
+      {saveError && <div className="save-error">{t('shell.saveError')}</div>}
       <main className="shell__main">{children}</main>
-      <nav className="tabbar" aria-label="Main">
-        {TABS.map((t) => {
-          const active = t.match(path)
+      <InstallSheet />
+      <nav className="tabbar" aria-label={t('shell.tabsLabel')}>
+        {TABS.map((tab) => {
+          const active = tab.match(path)
           return (
             <Link
-              key={t.to}
-              to={t.to}
-              className={`tab ${active ? 'tab--active' : ''} ${t.primary ? 'tab--primary' : ''}`}
+              key={tab.to}
+              to={tab.to}
+              className={`tab ${active ? 'tab--active' : ''} ${tab.primary ? 'tab--primary' : ''}`}
               aria-current={active ? 'page' : undefined}
             >
-              <span className="tab__icon"><Icon name={t.icon} size={t.primary ? 24 : 22} /></span>
-              <span className="tab__label">{t.label}</span>
+              <span className="tab__icon"><Icon name={tab.icon} size={tab.primary ? 24 : 22} /></span>
+              <span className="tab__label">{t(`shell.tabs.${tab.label}`)}</span>
             </Link>
           )
         })}
@@ -51,7 +54,7 @@ export function AdminShell({ children }) {
   return (
     <div className="shell shell--admin">
       <DemoBanner admin />
-      {saveError && <div className="save-error">{saveError}</div>}
+      {saveError && <div className="save-error">{t('shell.saveError')}</div>}
       <main className="shell__main shell__main--admin">{children}</main>
     </div>
   )

@@ -1,123 +1,34 @@
 // ─────────────────────────────────────────────────────────────
-// WASTE-SORTING GUIDE
+// WASTE-SORTING GUIDE — structure only. The text (names, bins,
+// what goes in, tips) is under `guide` in lang/en.js and lang/ms.js.
 // General Malaysian practice. Bin colours follow the national
 // recycling bin scheme (blue = paper, orange = plastic & metal,
 // brown = glass). The research team should verify each item
 // against official sources (e.g. SWCorp, KPKT, MBPJ) and
 // against what Desa Mentari's bin centres actually provide.
+// `where` lists the drop-off points (places.js) for each type.
 // ─────────────────────────────────────────────────────────────
 
-export const GUIDE = [
-  {
-    id: 'paper',
-    name: 'Paper',
-    bin: 'Blue recycling bin',
-    color: '#2f6fb3',
-    tint: '#e3eef9',
-    summary: 'Clean, dry paper and cardboard.',
-    yes: ['Newspapers and magazines', 'Cardboard boxes (flattened)', 'Office paper and envelopes', 'Paper bags', 'Cereal and tissue boxes'],
-    no: ['Used tissue and paper towels', 'Oily or food-stained pizza boxes', 'Used paper cups', 'Wet paper'],
-    tips: ['Flatten boxes so they take less space.', 'Keep paper dry — wet paper cannot be recycled.'],
-    where: ['recycling-corner', 'community-hall'],
-  },
-  {
-    id: 'plastic',
-    name: 'Plastic',
-    bin: 'Orange recycling bin',
-    color: '#d9731a',
-    tint: '#fcebdc',
-    summary: 'Rinsed bottles and containers.',
-    yes: ['Drink bottles (PET, number 1)', 'Shampoo and detergent bottles (HDPE, number 2)', 'Food containers (PP, number 5), rinsed', 'Clean plastic bags'],
-    no: ['Polystyrene food boxes', 'Plastic with food or oil left inside', 'Snack wrappers and sachets', 'Plastic toys and hangers'],
-    tips: ['Look for the number inside the recycling triangle on the bottom.', 'Rinse quickly and leave caps on bottles.'],
-    where: ['recycling-corner', 'community-hall'],
-  },
-  {
-    id: 'metal',
-    name: 'Cans & metal',
-    bin: 'Orange recycling bin',
-    color: '#8a6d1f',
-    tint: '#f4ecd6',
-    summary: 'Drink cans and food tins.',
-    yes: ['Aluminium drink cans', 'Food tins (sardine, condensed milk), rinsed', 'Clean aluminium foil and trays'],
-    no: ['Aerosol cans that are not empty', 'Paint or chemical tins', 'Gas cylinders'],
-    tips: ['Squash cans to save space.', 'Check aerosol cans are fully empty first.'],
-    where: ['recycling-corner'],
-  },
-  {
-    id: 'glass',
-    name: 'Glass',
-    bin: 'Brown recycling bin',
-    color: '#7a4b2a',
-    tint: '#f1e4da',
-    summary: 'Bottles and jars only.',
-    yes: ['Glass bottles', 'Glass jars (sauce, jam, coffee)'],
-    no: ['Broken window glass and mirrors', 'Light bulbs', 'Ceramic plates and mugs', 'Drinking glasses'],
-    tips: ['Remove lids — metal lids go with cans.', 'Wrap broken glass in newspaper and put it in general waste, labelled.'],
-    where: ['community-hall'],
-  },
-  {
-    id: 'ewaste',
-    name: 'E-waste',
-    bin: 'E-waste collection point',
-    color: '#5a4fa3',
-    tint: '#e8e6f6',
-    summary: 'Old electronics. Never in the general bin.',
-    yes: ['Mobile phones and tablets', 'Chargers and cables', 'Small appliances (kettle, rice cooker, fan)', 'Computer keyboards and mice'],
-    no: ['Large appliances in the bin centre — book a bulky waste pickup instead'],
-    tips: ['Wipe your personal data from phones first.', 'E-waste contains metals that pollute soil and water when dumped.'],
-    where: ['ewaste-bin'],
-  },
-  {
-    id: 'food',
-    name: 'Food waste',
-    bin: 'General waste (tied bag)',
-    color: '#3f8a3a',
-    tint: '#e2f1df',
-    summary: 'Leftovers, peels and bones.',
-    yes: ['Leftover rice and dishes', 'Fruit and vegetable peels', 'Bones and eggshells', 'Used tea leaves and coffee grounds'],
-    no: ['Leaving bags in corridors or staircases', 'Pouring cooking oil into drains'],
-    tips: ['Drain liquids and tie the bag tightly.', 'Take it down to the bin centre the same day — it attracts rats and cockroaches.', 'Collect used cooking oil in a bottle for the oil drum.'],
-    where: ['oil-drum'],
-  },
-  {
-    id: 'bulky',
-    name: 'Bulky waste',
-    bin: 'Scheduled bulky pickup',
-    color: '#4b5b66',
-    tint: '#e4e9ec',
-    summary: 'Furniture, mattresses, large items.',
-    yes: ['Sofas, tables and chairs', 'Mattresses and bed frames', 'Large appliances (fridge, washing machine)', 'Renovation debris (bagged)'],
-    no: ['Dumping at the bin centre, roadside or drains', 'Leaving items on non-pickup days'],
-    tips: ['Place items at the bulky waste point only on pickup days.', 'Large items trap rainwater — a dengue risk.'],
-    where: ['bulky-point'],
-  },
-  {
-    id: 'hazardous',
-    name: 'Hazardous',
-    bin: 'Keep separate',
-    color: '#b3261e',
-    tint: '#f8e1df',
-    summary: 'Batteries, chemicals, lamps.',
-    yes: ['Batteries of all kinds', 'Fluorescent tubes and bulbs', 'Paint, thinner and pesticides', 'Expired medicines'],
-    no: ['Mixing with general waste', 'Pouring chemicals into drains or sinks'],
-    tips: ['Tape battery ends before storing them.', 'Return expired medicines to a pharmacy or clinic.'],
-    where: ['ewaste-bin'],
-  },
-  {
-    id: 'general',
-    name: 'General waste',
-    bin: 'General waste bin',
-    color: '#3d4a45',
-    tint: '#e5e9e7',
-    summary: 'Everything that cannot be recycled.',
-    yes: ['Used tissues and diapers', 'Polystyrene boxes', 'Dirty food packaging', 'Snack wrappers'],
-    no: ['Recyclables that are clean', 'E-waste and batteries', 'Loose rubbish without a bag'],
-    tips: ['Always use a tied bag.', 'Close the bin lid to keep out pests and rain.'],
-    where: [],
-  },
+import { text } from '../i18n.js'
+
+const GUIDE = [
+  { id: 'paper', color: '#2f6fb3', tint: '#e3eef9', where: ['recycling-corner', 'community-hall'] },
+  { id: 'plastic', color: '#d9731a', tint: '#fcebdc', where: ['recycling-corner', 'community-hall'] },
+  { id: 'metal', color: '#8a6d1f', tint: '#f4ecd6', where: ['recycling-corner'] },
+  { id: 'glass', color: '#7a4b2a', tint: '#f1e4da', where: ['community-hall'] },
+  { id: 'ewaste', color: '#5a4fa3', tint: '#e8e6f6', where: ['ewaste-bin'] },
+  { id: 'food', color: '#3f8a3a', tint: '#e2f1df', where: ['oil-drum'] },
+  { id: 'bulky', color: '#4b5b66', tint: '#e4e9ec', where: ['bulky-point'] },
+  { id: 'hazardous', color: '#b3261e', tint: '#f8e1df', where: ['ewaste-bin'] },
+  { id: 'general', color: '#3d4a45', tint: '#e5e9e7', where: [] },
 ]
 
+/** The guide in the current language. */
+export function guideList() {
+  return GUIDE.map((g) => ({ ...g, ...text('guide', g.id) }))
+}
+
 export function guideById(id) {
-  return GUIDE.find((g) => g.id === id)
+  const g = GUIDE.find((x) => x.id === id)
+  return g && { ...g, ...text('guide', g.id) }
 }

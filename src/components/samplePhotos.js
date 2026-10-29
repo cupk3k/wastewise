@@ -4,7 +4,8 @@
 const bag = (x, y, s = 1, c = '#2b2f2e') =>
   `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 40c0-22 8-34 22-34s22 12 22 34c0 6-10 10-22 10S0 46 0 40z" fill="${c}"/><path d="M16 7l6-7 6 7" stroke="${c}" stroke-width="4" fill="none"/></g>`
 
-const label = `<rect x="12" y="12" width="118" height="30" rx="15" fill="rgba(0,0,0,.55)"/><text x="71" y="32" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">Sample photo</text>`
+const LABEL = '%LABEL%'
+const label = `<rect x="12" y="12" width="118" height="30" rx="15" fill="rgba(0,0,0,.55)"/><text x="71" y="32" font-family="sans-serif" font-size="14" fill="#fff" text-anchor="middle">${LABEL}</text>`
 
 const SCENES = {
   overflow: `
@@ -46,22 +47,26 @@ const SCENES = {
 
 const cache = {}
 
-export function samplePhoto(name) {
-  if (!cache[name]) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320">${SCENES[name] || SCENES.generic}</svg>`
-    cache[name] = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+const escapeXml = (s) => s.replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' })[c])
+
+export function samplePhoto(name, labelText = 'Sample photo') {
+  const key = `${name}|${labelText}`
+  if (!cache[key]) {
+    const scene = (SCENES[name] || SCENES.generic).replace(LABEL, escapeXml(labelText))
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320">${scene}</svg>`
+    cache[key] = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
   }
-  return cache[name]
+  return cache[key]
 }
 
 /** Resize a picked image file to a small JPEG data URL for localStorage. */
-export function compressImage(file, maxSide = 900, quality = 0.7) {
+export function compressImage(file, messages, maxSide = 900, quality = 0.7) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    reader.onerror = () => reject(new Error('Could not read the file.'))
+    reader.onerror = () => reject(new Error(messages.read))
     reader.onload = () => {
       const img = new Image()
-      img.onerror = () => reject(new Error('This file is not a supported image.'))
+      img.onerror = () => reject(new Error(messages.image))
       img.onload = () => {
         const scale = Math.min(1, maxSide / Math.max(img.width, img.height))
         const canvas = document.createElement('canvas')

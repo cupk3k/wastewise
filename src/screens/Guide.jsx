@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import Icon from '../components/Icon.jsx'
 import { Link } from '../router.jsx'
-import { GUIDE, guideById } from '../data/guide.js'
+import { guideList, guideById } from '../data/guide.js'
+import { t } from '../i18n.js'
 import { placeById } from '../data/places.js'
 import { PageHeader, RowLink, SampleTag } from '../components/ui.jsx'
 import NotFound from './NotFound.jsx'
@@ -9,11 +10,12 @@ import NotFound from './NotFound.jsx'
 export function GuideList() {
   const [q, setQ] = useState('')
   const query = q.trim().toLowerCase()
+  const guide = useMemo(guideList, [])
 
   const matches = useMemo(() => {
     if (!query) return []
     const out = []
-    for (const g of GUIDE) {
+    for (const g of guide) {
       for (const item of g.yes) {
         if (item.toLowerCase().includes(query)) out.push({ g, item, ok: true })
       }
@@ -22,17 +24,17 @@ export function GuideList() {
       }
     }
     return out.slice(0, 12)
-  }, [query])
+  }, [query, guide])
 
   return (
     <div className="page">
-      <PageHeader title="Where does it go?" subtitle="Pick a type of waste, or search an item" />
+      <PageHeader title={t('guide.title')} subtitle={t('guide.subtitle')} />
 
       <label className="search">
-        <span className="visually-hidden">Search an item</span>
+        <span className="visually-hidden">{t('guide.searchLabel')}</span>
         <input
           type="search"
-          placeholder="Try “bottle”, “battery”, “mattress”"
+          placeholder={t('guide.searchPlaceholder')}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -41,14 +43,14 @@ export function GuideList() {
       {query ? (
         <div className="search-results">
           {matches.length === 0 && (
-            <p className="empty-inline">No match for “{q}”. Browse the types below, or put it in general waste if unsure.</p>
+            <p className="empty-inline">{t('guide.noMatch', { q })}</p>
           )}
           {matches.map((m, i) => (
             <Link key={i} to={`/guide/${m.g.id}`} className="result">
               <span className="result__swatch" style={{ background: m.g.color }} />
               <span className="result__text">
                 <strong>{m.item}</strong>
-                <span>{m.ok ? `Goes to: ${m.g.bin}` : `Not in ${m.g.name.toLowerCase()} — see why`}</span>
+                <span>{m.ok ? t('guide.goesTo', { bin: m.g.bin }) : t('guide.notIn', { name: m.g.name.toLowerCase() })}</span>
               </span>
               <Icon name="chevron" size={18} />
             </Link>
@@ -57,7 +59,7 @@ export function GuideList() {
       ) : null}
 
       <div className="bin-grid">
-        {GUIDE.map((g) => (
+        {guide.map((g) => (
           <Link
             key={g.id}
             to={`/guide/${g.id}`}
@@ -71,9 +73,7 @@ export function GuideList() {
           </Link>
         ))}
       </div>
-      <p className="footnote">
-        Based on general Malaysian recycling practice. Follow your building management's rules where they differ.
-      </p>
+      <p className="footnote">{t('guide.footnote')}</p>
     </div>
   )
 }
@@ -87,26 +87,26 @@ export function GuideDetail({ id }) {
     <div className="page">
       <PageHeader title={g.name} back="/guide" />
       <div className="bin-hero" style={{ '--bin': g.color, '--bin-tint': g.tint }}>
-        <span className="bin-hero__label">Put it in</span>
+        <span className="bin-hero__label">{t('guide.putIn')}</span>
         <span className="bin-hero__bin">{g.bin}</span>
       </div>
 
       <section className="section">
-        <h2 className="h-yes"><Icon name="check" size={20} /> Yes, these go here</h2>
+        <h2 className="h-yes"><Icon name="check" size={20} /> {t('guide.yes')}</h2>
         <ul className="item-list item-list--yes">
           {g.yes.map((x) => <li key={x}>{x}</li>)}
         </ul>
       </section>
 
       <section className="section">
-        <h2 className="h-no"><Icon name="x" size={20} /> Not these</h2>
+        <h2 className="h-no"><Icon name="x" size={20} /> {t('guide.no')}</h2>
         <ul className="item-list item-list--no">
           {g.no.map((x) => <li key={x}>{x}</li>)}
         </ul>
       </section>
 
       <section className="section">
-        <h2>Good to know</h2>
+        <h2>{t('guide.tips')}</h2>
         <ul className="tips">
           {g.tips.map((x) => <li key={x}>{x}</li>)}
         </ul>
@@ -114,7 +114,7 @@ export function GuideDetail({ id }) {
 
       {places.length > 0 && (
         <section className="section">
-          <h2>Where to drop it off</h2>
+          <h2>{t('guide.where')}</h2>
           <div className="stack">
             {places.map((p) => (
               <RowLink key={p.id} to={`/recycle/${p.id}`}>

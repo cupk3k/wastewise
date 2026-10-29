@@ -47,11 +47,14 @@ Use the Vercel URL for the QR-code poster.
 
 All content lives in `src/data/`. Each file has a header comment.
 
+- `lang/en.js` and `lang/ms.js`: **every piece of text**, English and Bahasa Melayu, with the same keys. Change both together. Default language is English; the BM/EN button on Home and Settings → Language switch it.
 - `site.js`: block names and map positions. **Placeholders**, replace with the real Desa Mentari blocks.
-- `guide.js`: sorting guide. Verify against official sources.
-- `places.js`: drop-off points and collection schedule. **Sample data**; keep `sample: true` until verified.
-- `announcements.js`: sample notices.
+- `guide.js`: sorting guide structure (bin colours, which drop-off points). Verify against official sources.
+- `places.js`: drop-off points and collection schedule structure (map position, days). **Sample data**; keep `sample: true` until verified.
+- `announcements.js`: dates of the sample notices.
 - `reports.js`: report categories, statuses and the seed reports.
+
+Language and dark mode are saved per phone and are not changed by "Reset demo data".
 
 ## Docs and screenshots
 
@@ -61,6 +64,7 @@ Team docs are in `docs/` (overview, content verification, usability test kit, li
 npx playwright install chromium   # once
 npm run screenshots               # PNG of every screen in docs/screenshots/ (full-length ones in full/)
 npm run qr                        # poster QR code for the live URL, in docs/qr/
+npm run screenshots -- --lang ms   # Bahasa Melayu set (also --theme dark)
 ```
 
 ## Usability testing
