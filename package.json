@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "screenshots": "vite build && node scripts/screenshots.mjs",
-    "qr": "node scripts/qr.mjs"
+    "qr": "node scripts/qr.mjs",
+    "share-pdfs": "node scripts/share-pdfs.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

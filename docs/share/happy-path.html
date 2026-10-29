@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WasteWise – Happy-path tests</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="share.css">
+</head>
+<body>
+<header>
+  <p>WasteWise Desa Mentari · CSPH Group 1</p>
+  <h1>Happy-path tests (HP1–HP13)</h1>
+  <p>wastewise-desa-mentari.vercel.app</p>
+</header>
+
+<p class="note"><b>Start:</b> do <b>HP13 first</b> (add the app to the home screen) and run every other test in the app opened from its icon. Then gear icon → <b>Reset demo data</b> → <b>OK</b>. The app is on Blok 6, in English.</p>
+
+<section>
+  <h2>HP1. Home and announcements</h2>
+  <p class="plan">Plan: home feed with announcements; community activities</p>
+  <ol>
+    <li>Open the app. <span class="exp">Yellow banner, "Next collection" board tagged "Sample schedule".</span></li>
+    <li>Tap the <b>Gotong-royong</b> announcement. <span class="exp">When, Where, "Sample" tag.</span></li>
+    <li>Tap back. <span class="exp">Home again.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP2. Collection schedule</h2>
+  <p class="plan">Plan: collection schedule</p>
+  <ol>
+    <li>Home → <b>Full schedule</b>. <span class="exp">Mon–Sun grid, 3 waste types, next date for each.</span></li>
+    <li><span class="exp">The earliest date matches the Home board.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP3. Sorting guide</h2>
+  <p class="plan">Plan: visual waste-sorting guide</p>
+  <ol>
+    <li><b>Sort</b>. <span class="exp">9 types with bin colours.</span></li>
+    <li><b>Plastic</b>. <span class="exp">Orange bin, what goes in, what doesn't, tips, drop-off points.</span></li>
+    <li>Search <b>battery</b>. <span class="exp">Hazardous, "Keep separate", E-waste &amp; battery bin.</span></li>
+    <li>Also check Paper, E-waste and Food waste.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP4. Drop-off locator (timed task 1)</h2>
+  <p class="plan">Plan: drop-off locator; nearest drop-off point task</p>
+  <ol>
+    <li><b>Recycle</b>. <span class="exp">"I live in: Blok 6" and the map.</span></li>
+    <li><span class="exp">Nearest is Community hall recycling bins, about 100 m.</span></li>
+    <li>Tap the <b>Plastic</b> filter. <span class="exp">Only places that take plastic.</span></li>
+    <li>Open the first card. <span class="exp">Location, distance, hours, accepts, sample note.</span></li>
+    <li>Switch to <b>Blok 3</b>. <span class="exp">Nearest becomes Recycling corner, about 40 m.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP5. Report with a photo (timed task 2)</h2>
+  <p class="plan">Plan: reporting form with photo, category, location</p>
+  <ol>
+    <li><b>Report</b> → <b>Illegal dumping</b> → Blok 6 / <b>Roadside</b> → description.</li>
+    <li>Add a photo (or <b>Use a sample photo instead</b>). <span class="exp">Preview shows.</span></li>
+    <li><b>Send report</b>. <span class="exp">"Report sent", WW-0108, Submitted.</span></li>
+    <li><b>Track this report</b>. <span class="exp">Photo, Submitted in the timeline.</span></li>
+    <li>Check: send with nothing filled in. <span class="exp">The form says what's missing and doesn't send.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP6. My reports</h2>
+  <p class="plan">Plan: report details and statuses match</p>
+  <ol>
+    <li><b>My reports</b>. <span class="exp">WW-0108 and WW-0107 Submitted, WW-0104 Resolved.</span></li>
+    <li>Open <b>WW-0104</b>. <span class="exp">Handled by JMB maintenance team, timeline ends in Resolved.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP7. Management view</h2>
+  <p class="plan">Plan: admin view with Submitted / Under review / Resolved</p>
+  <ol>
+    <li>Gear → <b>Open management view</b>. <span class="exp">Counts per status, WW-0108 with a photo.</span></li>
+    <li>WW-0108 → assign <b>JMB maintenance team</b> → note → <b>Mark under review</b>.</li>
+    <li><b>Mark resolved</b>. <span class="exp">"This report is resolved."</span></li>
+    <li>Back → <b>Resident app</b> → My reports → WW-0108. <span class="exp">Resolved, with your note.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP8. Offline</h2>
+  <p class="plan">Plan: technical disruptions backup</p>
+  <ol>
+    <li>Open the app once while online.</li>
+    <li>Turn on airplane mode, reopen from the icon. <span class="exp">Home, Sort, Recycle, Report all open.</span></li>
+    <li>Send a report offline. <span class="exp">It appears in My reports.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP9. QR code</h2>
+  <p class="plan">Plan: QR-code poster</p>
+  <ol>
+    <li>Show or print the QR code.</li>
+    <li>Scan with an iPhone and an Android phone. <span class="exp">The app opens with the "Add WasteWise to your home screen" page on top.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP10. Reset between testers</h2>
+  <p class="plan">Plan: usability testing</p>
+  <ol>
+    <li>Gear → <b>Reset demo data</b> → <b>OK</b>. <span class="exp">"Demo data reset."</span></li>
+    <li><span class="exp">My reports back to WW-0107 and WW-0104; management view back to 7 reports.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP11. Language switch</h2>
+  <p class="plan">Plan: Bahasa Melayu and English</p>
+  <ol>
+    <li>Tap <b>BM</b> on Home. <span class="exp">Everything turns to BM; the button says EN.</span></li>
+    <li>Sort → Plastik, Recycle, WW-0104. <span class="exp">All in BM ("Selesai").</span></li>
+    <li>Reload. <span class="exp">Still BM.</span> Tap <b>EN</b> to switch back.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP12. Dark mode</h2>
+  <p class="plan">Plan: text readability</p>
+  <ol>
+    <li>Gear → <b>Dark mode</b> on. <span class="exp">Everything still readable.</span></li>
+    <li>Reload. <span class="exp">Still dark.</span> Turn it off.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>HP13. Add to Home Screen (required on phones)</h2>
+  <p class="plan">Plan: QR on their own phones; offline</p>
+  <ol>
+    <li>Open the link in Safari or Chrome. <span class="exp">The install page covers the app: an iPhone opens on the iPhone tab, an Android phone on the Android tab.</span></li>
+    <li>Tap the other tab. <span class="exp">That phone's steps and picture.</span></li>
+    <li>Tap outside or swipe down. <span class="exp">It stays: no close or "Not now"; the app behind can't be tapped.</span></li>
+    <li>Tap <b>BM</b>. <span class="exp">Steps in BM.</span> Tap <b>EN</b> to switch back.</li>
+    <li>Follow the steps, open WasteWise from the icon. <span class="exp">No page on top; the app works.</span></li>
+    <li>Open the link on a laptop. <span class="exp">No page on top.</span></li>
+  </ol>
+</section>
+
+<footer>Full version with plan references: docs/plan-alignment.md in the GitHub repo</footer>
+</body>
+</html>
