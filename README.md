@@ -51,6 +51,15 @@ All content lives in `src/data/`. Each file has a header comment.
 - `announcements.js`: sample notices.
 - `reports.js`: report categories, statuses and the seed reports.
 
+## Docs and screenshots
+
+Team docs are in `docs/` (overview, content verification, usability test kit, limitations, demo-day checklist, plan changes).
+
+```bash
+npx playwright install chromium   # once
+npm run screenshots               # PNG of every screen in docs/screenshots/ (full-length ones in full/)
+```
+
 ## Usability testing
 
 Before each tester: **Settings → Reset demo data**. This clears reports made on that device and restores the seed reports.
@@ -61,7 +70,7 @@ Suggested timed tasks (from the project plan):
 
 ## Offline
 
-`public/sw.js` caches the app after the first visit, so it still opens without Wi-Fi on demo day.
+`public/sw.js` caches the app (code, styles and fonts) during the first visit, so it still opens without Wi-Fi on demo day.
 Open the site once on each demo phone while online beforehand. To make it feel like an app, use
 "Add to Home Screen".
 
