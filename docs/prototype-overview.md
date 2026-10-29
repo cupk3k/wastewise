@@ -3,7 +3,7 @@
 CSPH (Community Service for Planetary Health), FET, Tutorial 4, Group 1. Lecturer: Dr. Dhevisha Sukumarran.
 Prototype owner: Jing Liang. Demo day: Thursday 17 December 2026, 4–6 pm.
 
-**Live prototype:** `<LIVE URL — add after Vercel deploy>`
+**Live prototype:** <https://wastewise-desa-mentari.vercel.app>
 
 ## Purpose
 
@@ -71,7 +71,7 @@ npm run preview    # serve the production build locally
 
 ## Deploy
 
-The GitHub repository is linked to Vercel. Every push to `main` deploys automatically. `vercel.json` sends every route to the app, so deep links such as `/guide/plastic` work when opened directly or from a QR code.
+The GitHub repository is linked to Vercel (project `wastewise-desa-mentari`, live at https://wastewise-desa-mentari.vercel.app). Every push to `main` deploys automatically. `vercel.json` sends every route to the app, so deep links such as `/guide/plastic` work when opened directly or from a QR code.
 
 ## Screenshots
 

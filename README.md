@@ -4,6 +4,8 @@ Mobile-first React prototype for the CSPH project (FET, Tutorial 4, Group 1).
 Frontend only. All data is simulated and stored in the browser's localStorage.
 Nothing is sent to building management or the council.
 
+Live: https://wastewise-desa-mentari.vercel.app
+
 ## Run locally
 
 Requires Node.js 20 or newer.

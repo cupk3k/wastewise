@@ -4,10 +4,10 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 
 ## One week before
 
-- [ ] Final version deployed on Vercel. Note the final URL: ____________________
+- [ ] Final version deployed on Vercel. URL: **https://wastewise-desa-mentari.vercel.app** (checked 29 Oct 2026: deep links and offline after one visit both work)
 - [ ] Generate the QR code **from the final Vercel URL** (a free QR generator, no shortener, no tracking link). Paste it onto the poster.
 - [ ] Test the QR code on the printed poster with an **iPhone** (Camera app) and an **Android** phone (Camera or Google Lens). Both open the Home screen.
-- [ ] Open a deep link directly, e.g. `<URL>/guide/plastic`, to confirm it loads.
+- [ ] Open a deep link directly, e.g. `https://wastewise-desa-mentari.vercel.app/guide/plastic`, to confirm it loads.
 - [ ] Run `npm run screenshots` and check every PNG in `docs/screenshots/`.
 - [ ] Export the screenshots as a single PDF as well (backup to show on a laptop or print).
 - [ ] Check the dates in sample announcements still make sense on 17 December (see `content-verification.md`).
