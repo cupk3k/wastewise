@@ -165,5 +165,5 @@ Steps HP4, HP5, HP7 and HP10 were run on the live site on 29 Oct 2026 and gave t
 2. Tap the other tab. **Expect:** that phone's three steps and picture.
 3. Tap the dark area above the page, or try to swipe it down. **Expect:** it stays; there is no close or "Not now" button, and the app behind can't be tapped.
 4. Tap **BM** on the page. **Expect:** the steps switch to Bahasa Melayu. Tap **EN** to go back.
-5. Follow the steps for your phone, then open WasteWise from the new icon. **Expect:** no page on top; the app works normally.
+5. Follow the steps for your phone, then open WasteWise from the new icon. **Expect:** no page on top; the app works normally. On Android, choose **Install** (or **Install WasteWise**), not "Create shortcut": a shortcut opens a normal Chrome tab and the page stays. Once installed, the page also goes away in the Chrome tab.
 6. *(Check)* Open the link on a laptop. **Expect:** no page on top (computers aren't blocked).

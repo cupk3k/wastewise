@@ -7,6 +7,8 @@ import Icon from './Icon.jsx'
 import { LANGUAGES, t } from '../i18n.js'
 import { usePrefs } from '../prefs.jsx'
 
+const INSTALLED_KEY = 'wastewise.installed'
+
 // Chrome on Android offers its own install prompt; keep it so "Install now" can use it.
 let deferredPrompt = null
 if (typeof window !== 'undefined') {
@@ -15,10 +17,43 @@ if (typeof window !== 'undefined') {
     deferredPrompt = e
     window.dispatchEvent(new Event('wastewise:install-ready'))
   })
+  window.addEventListener('appinstalled', markInstalled)
+  // The installed app starts at /?source=homescreen (manifest start_url): remember it, tidy the URL.
+  if (new URLSearchParams(window.location.search).get('source') === 'homescreen') {
+    markInstalled()
+    window.history.replaceState(window.history.state, '', window.location.pathname + window.location.hash)
+  }
 }
 
+function markInstalled() {
+  try {
+    localStorage.setItem(INSTALLED_KEY, '1')
+  } catch {
+    /* private mode: the display-mode check below still works */
+  }
+}
+
+function rememberedInstalled() {
+  try {
+    return localStorage.getItem(INSTALLED_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+const APP_MODES = ['standalone', 'fullscreen', 'minimal-ui', 'window-controls-overlay']
+
 export function isStandalone() {
-  return window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true
+  return (
+    APP_MODES.some((m) => window.matchMedia?.(`(display-mode: ${m})`).matches) ||
+    window.navigator.standalone === true ||
+    document.referrer.startsWith('android-app://')
+  )
+}
+
+/** Opened as the installed app, or installed on this phone before (Android shares storage with Chrome). */
+export function isInstalled() {
+  return isStandalone() || rememberedInstalled()
 }
 
 export function platform() {
@@ -30,15 +65,23 @@ export function platform() {
 
 /** True when the app must be added to the home screen before it can be used. */
 export function useInstallGate() {
-  const [blocked, setBlocked] = useState(() => platform() !== 'other' && !isStandalone())
+  const [blocked, setBlocked] = useState(() => platform() !== 'other' && !isInstalled())
   useEffect(() => {
-    const check = () => setBlocked(platform() !== 'other' && !isStandalone())
-    const mq = window.matchMedia?.('(display-mode: standalone)')
-    mq?.addEventListener?.('change', check)
-    window.addEventListener('appinstalled', check)
+    const check = () => setBlocked(platform() !== 'other' && !isInstalled())
+    const onInstalled = () => {
+      markInstalled()
+      check()
+    }
+    const mqs = APP_MODES.map((m) => window.matchMedia?.(`(display-mode: ${m})`)).filter(Boolean)
+    mqs.forEach((mq) => mq.addEventListener?.('change', check))
+    window.addEventListener('appinstalled', onInstalled)
+    // Chrome on Android can tell a browser tab that this web app is already installed.
+    navigator.getInstalledRelatedApps?.()
+      .then((apps) => apps.length > 0 && onInstalled())
+      .catch(() => {})
     return () => {
-      mq?.removeEventListener?.('change', check)
-      window.removeEventListener('appinstalled', check)
+      mqs.forEach((mq) => mq.removeEventListener?.('change', check))
+      window.removeEventListener('appinstalled', onInstalled)
     }
   }, [])
   return blocked
@@ -48,7 +91,6 @@ export default function InstallSheet() {
   const os = platform()
   const [tab, setTab] = useState(os === 'android' ? 'android' : 'ios')
   const [canPrompt, setCanPrompt] = useState(!!deferredPrompt)
-  const [installed, setInstalled] = useState(false)
   const { lang, setLang } = usePrefs()
   const other = LANGUAGES[lang === 'en' ? 'ms' : 'en']
   const sheetRef = useRef(null)
@@ -66,8 +108,7 @@ export default function InstallSheet() {
     setCanPrompt(false)
     if (!prompt) return
     prompt.prompt()
-    const { outcome } = await prompt.userChoice
-    if (outcome === 'accepted') setInstalled(true)
+    await prompt.userChoice // when accepted, 'appinstalled' lifts the gate
   }
 
   return (
@@ -106,6 +147,12 @@ export default function InstallSheet() {
         </div>
 
         <div id="install-steps" role="tabpanel" aria-labelledby={`install-tab-${tab}`}>
+          {tab === 'android' && os === 'android' && canPrompt && (
+            <>
+              <button className="btn btn--primary btn--block sheet__install" onClick={installNow}>{t('install.installNow')}</button>
+              <p className="sheet__or">{t('install.orByHand')}</p>
+            </>
+          )}
           <ol className="sheet__steps">
             {t(tab === 'ios' ? 'install.iosSteps' : 'install.androidSteps').map((step, i) => (
               <li key={`${tab}${i}`}><StepText text={step} /></li>
@@ -114,10 +161,6 @@ export default function InstallSheet() {
           <p className="footnote">{t(tab === 'ios' ? 'install.iosOther' : 'install.androidOther')}</p>
         </div>
 
-        {tab === 'android' && os === 'android' && canPrompt && (
-          <button className="btn btn--primary btn--block" onClick={installNow}>{t('install.installNow')}</button>
-        )}
-        {installed && <p className="ok-note" role="status">{t('install.openFromIcon')}</p>}
         <p className="sheet__after">{t('install.after')}</p>
       </div>
     </div>

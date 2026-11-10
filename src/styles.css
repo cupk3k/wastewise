@@ -550,6 +550,8 @@ img { max-width: 100%; display: block; }
 .sheet::before { content: ''; position: absolute; top: 8px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 2px; background: var(--line); }
 .sheet__lang { position: absolute; top: 14px; right: 14px; min-width: 40px; height: 36px; font-size: 13px; }
 .sheet__tabs { margin: 4px 0 14px; }
+.sheet__install { margin-top: 0; }
+.sheet__or { text-align: center; font-size: 13px; color: var(--muted); margin: 8px 0 6px; }
 .sheet__after { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--muted); text-align: center; }
 .sheet__head { display: flex; gap: 14px; align-items: center; padding-right: 50px; margin-bottom: 12px; }
 .sheet__head h2 { font-size: 18px; font-weight: 800; line-height: 1.25; margin-bottom: 2px; }

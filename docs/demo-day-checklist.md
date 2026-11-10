@@ -15,7 +15,7 @@ Demo day: **Thursday 17 December 2026, 4–6 pm.**
 ## Day before (on every demo phone)
 
 - [ ] Open the site **once while online** and tap through Home, Guide, Drop-off points, Report, My reports and Management view. This saves the app on the phone for offline use.
-- [ ] **Add to Home Screen** (required: on a phone the app only works from its icon). iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → Add to Home screen / Install app. Then always open it from the icon.
+- [ ] **Add to Home Screen** (required: on a phone the app only works from its icon). iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → **Install app** (if it says "Add to Home screen", choose **Install**, not "Create shortcut": a shortcut stays blocked). Then always open it from the icon.
 - [ ] Test offline: turn on airplane mode, open the app from the home screen icon, check that pages open. Turn airplane mode off again.
 - [ ] Save a test photo of rubbish or a bin on each phone for the report task.
 - [ ] Charge every phone; bring a power bank and cables.

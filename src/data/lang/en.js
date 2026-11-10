@@ -226,13 +226,13 @@ export default {
       iosOther: 'Opened from WhatsApp, Instagram or a QR scanner app? Tap its menu and choose “Open in Safari” first.',
       androidSteps: [
         'Open this page in Chrome. Tap the menu {menu} at the top right.',
-        'Tap “Add to Home screen” or “Install app”.',
+        'Tap “Install app”. If you only see “Add to Home screen”, tap it and choose “Install”, not “Create shortcut”.',
         'Tap “Install”. Then open WasteWise from its new icon on your home screen.',
       ],
-      androidOther: 'Opened from WhatsApp, Instagram or a QR scanner app? Tap its menu and choose “Open in Chrome” first.',
-      installNow: 'Install now',
-      openFromIcon: 'Installed. Open WasteWise from its icon on your home screen.',
-      after: 'This page closes by itself once WasteWise is opened from the home screen.',
+      androidOther: 'Opened from WhatsApp, Instagram or a QR scanner app? Tap its menu and choose “Open in Chrome” first. Added a shortcut before and still see this page? Remove that icon and follow the steps again.',
+      installNow: 'Install WasteWise',
+      orByHand: 'or follow these steps:',
+      after: 'Once WasteWise is installed, open it from its icon on your home screen.',
       imageAlt: 'Phone screen showing where to tap',
     },
     notFound: {

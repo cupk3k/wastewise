@@ -23,7 +23,7 @@ The free Vercel plan has one owner and no team members, so only the person who o
 2. Open `scripts/qr.mjs` and change the line `const URL_ = '...'` to the new link.
 3. Run `npm run qr`. It replaces `docs/qr/wastewise-qr.png` and `docs/qr/wastewise-qr.svg`.
 4. Scan the new PNG with an iPhone and an Android phone: both must open the app.
-5. Change the link in `README.md`, `docs/prototype-overview.md` and `docs/demo-day-checklist.md` too.
+5. Change the link in `README.md`, `docs/prototype-overview.md`, `docs/demo-day-checklist.md`, and in `public/manifest.webmanifest` (`related_applications`, which lets Android see the app is installed).
 6. Send the change: commit and push to `main` (you need to be added as a collaborator first, see below), or send the files to Jing Liang.
 7. Reprint the poster with the new QR code. An old print keeps working only if the old link was kept in step 1.4.
 

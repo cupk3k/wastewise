@@ -225,13 +225,13 @@ export default {
       iosOther: 'Dibuka dari WhatsApp, Instagram atau aplikasi pengimbas QR? Ketik menunya dan pilih “Buka dalam Safari” dahulu.',
       androidSteps: [
         'Buka halaman ini dalam Chrome. Ketik menu {menu} di atas kanan.',
-        'Ketik “Tambah ke skrin Utama” atau “Pasang aplikasi” (Install app).',
+        'Ketik “Pasang aplikasi” (Install app). Jika hanya ada “Tambah ke skrin Utama”, ketik dan pilih “Pasang” (Install), bukan “Buat pintasan” (Create shortcut).',
         'Ketik “Pasang” (Install). Kemudian buka WasteWise dari ikon barunya di skrin utama.',
       ],
-      androidOther: 'Dibuka dari WhatsApp, Instagram atau aplikasi pengimbas QR? Ketik menunya dan pilih “Buka dalam Chrome” dahulu.',
-      installNow: 'Pasang sekarang',
-      openFromIcon: 'Sudah dipasang. Buka WasteWise dari ikonnya di skrin utama.',
-      after: 'Halaman ini tertutup sendiri apabila WasteWise dibuka dari skrin utama.',
+      androidOther: 'Dibuka dari WhatsApp, Instagram atau aplikasi pengimbas QR? Ketik menunya dan pilih “Buka dalam Chrome” dahulu. Pernah menambah pintasan dan masih nampak halaman ini? Buang ikon itu dan ikut langkah sekali lagi.',
+      installNow: 'Pasang WasteWise',
+      orByHand: 'atau ikut langkah ini:',
+      after: 'Selepas WasteWise dipasang, buka dari ikonnya di skrin utama.',
       imageAlt: 'Skrin telefon yang menunjukkan tempat untuk diketik',
     },
     notFound: {
